@@ -1,0 +1,30 @@
+# OpenTelemetry Collector for lab 04: receive OTLP, delete prompt text, batch, forward to Jaeger.
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  attributes/strip_prompt:          # personal data never leaves the collector
+    actions:
+      - key: prompt.text
+        action: delete
+      - key: gen_ai.prompt
+        action: delete
+  batch: {}
+
+exporters:
+  otlp/jaeger:
+    endpoint: jaeger:4317
+    tls:
+      insecure: true
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [attributes/strip_prompt, batch]
+      exporters: [otlp/jaeger]

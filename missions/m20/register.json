@@ -1,0 +1,8 @@
+{
+  "enc_rest": {"status": "implemented", "evidence": ["EV-12"]},
+  "enc_transit": {"status": "implemented", "evidence": ["EV-03", "EV-04"]},
+  "access_review": {"status": "partial", "evidence": ["EV-20"]},
+  "log_redaction": {"status": "implemented", "evidence": ["EV-31"]},
+  "log_retention": {"status": "planned", "evidence": []},
+  "ir_plan": {"status": "planned", "evidence": []}
+}

@@ -1,0 +1,34 @@
+{
+ "kind": "pylab",
+ "title": "Validate tool-call arguments with JSON Schema",
+ "code_file": "lab.py",
+ "preamble_file": null,
+ "setup": "",
+ "setup_first": true,
+ "checks": [
+  [
+   "Only the first call is valid",
+   "[r['valid'] for r in report] == [True, False, False, False, False, False]"
+  ],
+  [
+   "Amount over the limit names 'amount'",
+   "report[1]['field'] == 'amount'"
+  ],
+  [
+   "A bad order id names 'order_id'",
+   "report[2]['field'] == 'order_id'"
+  ],
+  [
+   "A missing reason names 'reason'",
+   "report[4]['field'] == 'reason'"
+  ],
+  [
+   "An unexpected argument names 'approve'",
+   "report[5]['field'] == 'approve'"
+  ],
+  [
+   "Only valid calls are executed",
+   "list(safe_to_execute) == [0]"
+  ]
+ ]
+}

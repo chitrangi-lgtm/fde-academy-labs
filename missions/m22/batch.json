@@ -1,0 +1,6 @@
+[
+  {"claim_id": "C-1", "status": "assessing", "amount": 1200.5, "updated_at": "2026-10-25T08:10:00"},
+  {"claim_id": "C-2", "status": "closed", "amount": null, "priority": 2, "updated_at": "2026-10-25T08:20:00"},
+  {"claim_id": "C-3", "amount": "900", "updated_at": "2026-10-25T08:30:00"},
+  {"claim_id": null, "status": "paid", "amount": 50, "priority": true, "updated_at": "2026-10-25T09:05:00", "notes": "x"}
+]

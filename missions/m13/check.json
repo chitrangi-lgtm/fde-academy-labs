@@ -1,0 +1,33 @@
+{
+ "kind": "mission",
+ "title": "The cheapest model setup that meets the latency target",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "",
+ "checks": [
+  [
+   "One request without caching",
+   "abs(request_cost(MODELS[1], TRAFFIC) - 0.005) < 1e-12"
+  ],
+  [
+   "One request with a 90 percent cache hit on the prefix",
+   "abs(request_cost(MODELS[1], TRAFFIC, 0.9) - 0.00257) < 1e-12"
+  ],
+  [
+   "Monthly cost without caching",
+   "[monthly_cost(m, TRAFFIC) for m in MODELS] == [18000.0, 6000.0, 1500.0]"
+  ],
+  [
+   "Monthly cost with caching",
+   "[monthly_cost(m, TRAFFIC, 0.9) for m in MODELS] == [9252.0, 3084.0, 771.0]"
+  ],
+  [
+   "The cheapest model within the latency target",
+   "cheapest(MODELS, TRAFFIC, 1500, 0.9) == 'swift-small'"
+  ],
+  [
+   "A tight target leaves only the fast models; an impossible one leaves none",
+   "cheapest(MODELS[:2], TRAFFIC, 1500) == 'atlas-mid' and cheapest(MODELS, TRAFFIC, 500) is None"
+  ]
+ ]
+}

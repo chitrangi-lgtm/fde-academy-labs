@@ -1,0 +1,33 @@
+{
+ "kind": "mission",
+ "title": "Canary, hold or roll back?",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "",
+ "checks": [
+  [
+   "A healthy canary is promoted",
+   "canary_decision(BASELINE, {'requests': 900, 'errors': 5, 'p95_ms': 1250, 'eval_score': 0.92}, RULES) == ('promote', [])"
+  ],
+  [
+   "More errors means rollback",
+   "canary_decision(BASELINE, {'requests': 900, 'errors': 20, 'p95_ms': 1200, 'eval_score': 0.91}, RULES)[0] == 'rollback'"
+  ],
+  [
+   "Worse quality means rollback, even with little traffic",
+   "canary_decision(BASELINE, {'requests': 100, 'errors': 0, 'p95_ms': 1200, 'eval_score': 0.86}, RULES)[0] == 'rollback'"
+  ],
+  [
+   "Too little traffic or slower responses mean hold",
+   "canary_decision(BASELINE, {'requests': 300, 'errors': 1, 'p95_ms': 1200, 'eval_score': 0.91}, RULES)[0] == 'hold' and canary_decision(BASELINE, {'requests': 900, 'errors': 4, 'p95_ms': 1400, 'eval_score': 0.91}, RULES)[0] == 'hold'"
+  ],
+  [
+   "Reasons explain a decision",
+   "len(canary_decision(BASELINE, {'requests': 300, 'errors': 1, 'p95_ms': 1400, 'eval_score': 0.91}, RULES)[1]) == 2"
+  ],
+  [
+   "Rollout stages",
+   "[next_stage(p) for p in (1, 5, 25, 50, 100)] == [5, 25, 50, 100, 100]"
+  ]
+ ]
+}

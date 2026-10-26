@@ -1,0 +1,30 @@
+{
+ "kind": "pylab",
+ "title": "Plan an agent's work as a graph with NetworkX",
+ "code_file": "lab.py",
+ "preamble_file": null,
+ "setup": "",
+ "setup_first": true,
+ "checks": [
+  [
+   "Tasks are grouped into parallel waves",
+   "batches == [['collect'], ['clean', 'policy_review'], ['approve', 'embed'], ['index'], ['launch']]"
+  ],
+  [
+   "The critical path runs through the data work",
+   "list(critical_path) == ['collect', 'clean', 'embed', 'index', 'launch']"
+  ],
+  [
+   "The plan takes 11 days",
+   "duration == 11"
+  ],
+  [
+   "Making collect wait for launch is a cycle",
+   "has_cycle([('launch', 'collect')]) is True"
+  ],
+  [
+   "A harmless extra dependency is not",
+   "has_cycle([('clean', 'policy_review')]) is False"
+  ]
+ ]
+}

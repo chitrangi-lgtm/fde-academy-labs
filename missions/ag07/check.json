@@ -1,0 +1,33 @@
+{
+ "kind": "mission",
+ "title": "A supervisor that routes, follows hand-offs and knows when to stop",
+ "code_file": "solution.py",
+ "preamble_file": "provided.py",
+ "setup": "",
+ "checks": [
+  [
+   "Routing by keyword, in order",
+   "[route(t) for t in ('refund please', 'login error', 'where is my parcel', 'hello')] == ['billing', 'technical', 'delivery', 'human']"
+  ],
+  [
+   "A simple ticket is handled by one agent",
+   "supervise('I want a refund', AGENTS) == {'handled_by': 'billing', 'transcript': [('billing', 'Refund approved.')], 'escalated': False}"
+  ],
+  [
+   "A hand-off is followed",
+   "supervise('login error then parcel missing', AGENTS)['handled_by'] == 'delivery' and len(supervise('login error then parcel missing', AGENTS)['transcript']) == 2"
+  ],
+  [
+   "Ping-pong is escalated before it starts",
+   "supervise('the app shows a charge twice', AGENTS) == {'handled_by': 'human', 'transcript': [('billing', 'The charge looks right; the app problem is for technical.'), ('technical', 'The app is fine; the charge is a billing question.')], 'escalated': True}"
+  ],
+  [
+   "Too many hand-offs are escalated",
+   "supervise('parcel refund and app login', AGENTS, max_handoffs=1)['escalated'] is True"
+  ],
+  [
+   "Unmatched tickets go to a human",
+   "supervise('hello there', AGENTS) == {'handled_by': 'human', 'transcript': [], 'escalated': True}"
+  ]
+ ]
+}

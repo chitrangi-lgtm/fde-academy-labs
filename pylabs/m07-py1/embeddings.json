@@ -1,0 +1,102 @@
+{
+ "docs": [
+  {
+   "id": "d1",
+   "text": "Reset your password from the sign-in page",
+   "vec": [
+    0.9,
+    0.1,
+    0,
+    0,
+    0.1,
+    0
+   ]
+  },
+  {
+   "id": "d2",
+   "text": "Refunds are paid within five working days",
+   "vec": [
+    0,
+    0.9,
+    0.2,
+    0,
+    0,
+    0.1
+   ]
+  },
+  {
+   "id": "d3",
+   "text": "Change the delivery address before dispatch",
+   "vec": [
+    0,
+    0.1,
+    0.9,
+    0.1,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "d4",
+   "text": "Your account locks after five failed sign-ins",
+   "vec": [
+    0.8,
+    0,
+    0,
+    0.3,
+    0.2,
+    0
+   ]
+  },
+  {
+   "id": "d5",
+   "text": "Invoice copies are in the billing portal",
+   "vec": [
+    0.1,
+    0.3,
+    0,
+    0,
+    0.9,
+    0
+   ]
+  },
+  {
+   "id": "d6",
+   "text": "The long FAQ page that mentions everything",
+   "vec": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3
+   ]
+  }
+ ],
+ "queries": {
+  "login": [
+   1,
+   0,
+   0,
+   0.2,
+   0.1,
+   0
+  ],
+  "refund": [
+   0,
+   1,
+   0.1,
+   0,
+   0.5,
+   0
+  ],
+  "address": [
+   0,
+   0,
+   1,
+   0.1,
+   0,
+   0
+  ]
+ }
+}

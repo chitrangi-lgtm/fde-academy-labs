@@ -1,0 +1,4 @@
+sku,price,effective,source
+ab-1,3.00,2026-04-01,catalog
+AB-1,2.50,2026-05-01,email
+ab-2,9.99,2026-04-01,email

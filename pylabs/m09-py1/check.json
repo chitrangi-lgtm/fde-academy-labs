@@ -1,0 +1,34 @@
+{
+ "kind": "pylab",
+ "title": "Validate model output with pydantic",
+ "code_file": "lab.py",
+ "preamble_file": null,
+ "setup": "import json as _j\n_good = _j.load(open(\"model_outputs.json\"))[0]\ndef _raises(fn):\n    try:\n        fn()\n    except Exception:\n        return True\n    return False\n",
+ "setup_first": true,
+ "checks": [
+  [
+   "The two good invoices pass, including the one wrapped in a code fence",
+   "valid == ['INV-0001', 'INV-0004']"
+  ],
+  [
+   "Three outputs are rejected",
+   "sorted(errors) == [1, 2, 4]"
+  ],
+  [
+   "A total that does not match the lines is rejected",
+   "_raises(lambda: Invoice.model_validate({**_j.loads(_good), 'total': 35.0}))"
+  ],
+  [
+   "A lower-case currency is rejected",
+   "_raises(lambda: Invoice.model_validate({**_j.loads(_good), 'currency': 'usd'}))"
+  ],
+  [
+   "A zero quantity is rejected",
+   "_raises(lambda: Line(description='x', qty=0, unit_price=1.0))"
+  ],
+  [
+   "A good invoice still validates",
+   "Invoice.model_validate_json(_good).total == 30.0"
+  ]
+ ]
+}

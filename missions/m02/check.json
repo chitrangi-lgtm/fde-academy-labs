@@ -1,0 +1,41 @@
+{
+ "kind": "mission",
+ "title": "Make a quote that cannot add up wrongly",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "\ndef _raises(fn, exc=Exception):\n    try:\n        fn()\n    except exc:\n        return True\n    except Exception:\n        return False\n    return False\n\nfrom decimal import Decimal as _D\ndef _q(discount=10):\n    return Quote([QuoteLine(\"Venue\", 1, Money(_D(\"1200.00\"), \"USD\")), QuoteLine(\"Catering\", 40, Money(_D(\"18.75\"), \"USD\"))], discount)\n",
+ "checks": [
+  [
+   "The total applies the discount",
+   "_q().total() == Money(_D('1755.00'), 'USD')"
+  ],
+  [
+   "Rounding is half up to the cent",
+   "Quote([QuoteLine('Pens', 3, Money(_D('3.33'), 'USD'))], 15).total() == Money(_D('8.49'), 'USD') and Quote([QuoteLine('Tape', 1, Money(_D('0.25'), 'USD'))], 10).total() == Money(_D('0.23'), 'USD')"
+  ],
+  [
+   "Money of different currencies cannot be added",
+   "_raises(lambda: Money(_D('1'), 'USD') + Money(_D('1'), 'EUR'), ValueError)"
+  ],
+  [
+   "Money cannot be changed after creation",
+   "_raises(lambda: setattr(Money(_D('1'), 'USD'), 'amount', _D('2')))"
+  ],
+  [
+   "A zero or fractional quantity is rejected",
+   "_raises(lambda: QuoteLine('x', 0, Money(_D('1'), 'USD')), ValueError) and _raises(lambda: QuoteLine('x', 1.5, Money(_D('1'), 'USD')), ValueError)"
+  ],
+  [
+   "A discount above 30 percent is rejected",
+   "_raises(lambda: _q(35), ValueError)"
+  ],
+  [
+   "Mixed currencies in one quote are rejected",
+   "_raises(lambda: Quote([QuoteLine('a', 1, Money(_D('1'), 'USD')), QuoteLine('b', 1, Money(_D('1'), 'EUR'))]), ValueError)"
+  ],
+  [
+   "to_dict gives finance the total as text",
+   "_q().to_dict()['total'] == '1755.00' and _q().to_dict()['currency'] == 'USD' and _q().to_dict()['discount_pct'] == 10"
+  ]
+ ]
+}

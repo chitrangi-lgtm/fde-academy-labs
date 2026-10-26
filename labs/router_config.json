@@ -1,0 +1,9 @@
+{
+  "endpoints": [
+    {"platform": "bedrock", "region": "eu-central-1", "jurisdiction": "EU", "model_env": "BEDROCK_MODEL_ID", "priority": 1, "enabled": false, "available": true},
+    {"platform": "azure-foundry", "region": "germanywestcentral", "jurisdiction": "EU", "model_env": "AZURE_DEPLOYMENT", "priority": 2, "enabled": false, "available": true},
+    {"platform": "vertex", "region": "europe-west3", "jurisdiction": "EU", "model_env": "VERTEX_MODEL", "priority": 3, "enabled": false, "available": true},
+    {"platform": "mock", "region": "local-eu", "jurisdiction": "EU", "model_env": "", "priority": 9, "enabled": true, "available": true},
+    {"platform": "mock", "region": "local-us", "jurisdiction": "US", "model_env": "", "priority": 8, "enabled": true, "available": true}
+  ]
+}

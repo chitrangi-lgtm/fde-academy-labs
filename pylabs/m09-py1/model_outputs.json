@@ -1,0 +1,7 @@
+[
+ "{\"invoice_no\": \"INV-0001\", \"currency\": \"USD\", \"lines\": [{\"description\": \"Setup\", \"qty\": 1, \"unit_price\": 20.0}, {\"description\": \"Support hour\", \"qty\": 2, \"unit_price\": 5.0}], \"total\": 30.0}",
+ "{\"invoice_no\": \"INV-0002\", \"currency\": \"USD\", \"lines\": [{\"description\": \"Setup\", \"qty\": 1, \"unit_price\": 20.0}, {\"description\": \"Support hour\", \"qty\": 2, \"unit_price\": 5.0}], \"total\": 35.0}",
+ "{\"invoice_no\": \"INV-0003\", \"currency\": \"usd\", \"lines\": [{\"description\": \"Setup\", \"qty\": 1, \"unit_price\": 20.0}, {\"description\": \"Support hour\", \"qty\": 2, \"unit_price\": 5.0}], \"total\": 30.0}",
+ "Sure! Here is the invoice you asked for:\n```json\n{\"invoice_no\": \"INV-0004\", \"currency\": \"EUR\", \"lines\": [{\"description\": \"Setup\", \"qty\": 1, \"unit_price\": 20.0}, {\"description\": \"Support hour\", \"qty\": 2, \"unit_price\": 5.0}], \"total\": 30.0}\n```\nLet me know if you need anything else.",
+ "{\"invoice_no\": \"INV-0005\", \"currency\": \"USD\", \"lines\": [{\"description\": \"Setup\", \"qty\": 0, \"unit_price\": 20.0}], \"total\": 0.0}"
+]

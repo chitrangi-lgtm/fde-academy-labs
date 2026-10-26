@@ -1,0 +1,122 @@
+[
+{
+"day": "09-01",
+"feature": "search",
+"step": "plan",
+"model": "small",
+"input": 2000,
+"cached": 1500,
+"output": 200,
+"ms": 300
+},
+{
+"day": "09-01",
+"feature": "search",
+"step": "answer",
+"model": "large",
+"input": 6000,
+"cached": 3000,
+"output": 500,
+"ms": 1800
+},
+{
+"day": "09-01",
+"feature": "returns",
+"step": "plan",
+"model": "small",
+"input": 1800,
+"cached": 1200,
+"output": 150,
+"ms": 280
+},
+{
+"day": "09-01",
+"feature": "returns",
+"step": "answer",
+"model": "large",
+"input": 4000,
+"cached": 2000,
+"output": 400,
+"ms": 1500
+},
+{
+"day": "09-02",
+"feature": "search",
+"step": "plan",
+"model": "small",
+"input": 2100,
+"cached": 1600,
+"output": 220,
+"ms": 320
+},
+{
+"day": "09-02",
+"feature": "search",
+"step": "answer",
+"model": "large",
+"input": 6200,
+"cached": 3100,
+"output": 520,
+"ms": 1900
+},
+{
+"day": "09-02",
+"feature": "returns",
+"step": "plan",
+"model": "small",
+"input": 1700,
+"cached": 1100,
+"output": 140,
+"ms": 260
+},
+{
+"day": "09-02",
+"feature": "returns",
+"step": "answer",
+"model": "large",
+"input": 52000,
+"cached": 1000,
+"output": 6000,
+"ms": 4200
+},
+{
+"day": "09-03",
+"feature": "search",
+"step": "plan",
+"model": "small",
+"input": 2050,
+"cached": 1550,
+"output": 210,
+"ms": 310
+},
+{
+"day": "09-03",
+"feature": "search",
+"step": "answer",
+"model": "large",
+"input": 6100,
+"cached": 3050,
+"output": 510,
+"ms": 1850
+},
+{
+"day": "09-03",
+"feature": "returns",
+"step": "plan",
+"model": "small",
+"input": 1750,
+"cached": 1150,
+"output": 145,
+"ms": 270
+},
+{
+"day": "09-03",
+"feature": "returns",
+"step": "answer",
+"model": "large",
+"input": 4100,
+"cached": 2050,
+"output": 410,
+"ms": 1550
+}
+]

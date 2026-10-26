@@ -1,0 +1,30 @@
+{
+ "kind": "pylab",
+ "title": "A sensitivity chart for the steering committee",
+ "code_file": "lab.py",
+ "preamble_file": null,
+ "setup": "",
+ "setup_first": true,
+ "checks": [
+  [
+   "The base NPV is right",
+   "abs(npv(**base) - 245_529.68) < 0.01 and abs(npv(100_000, 50_000, 0, years=2) - 123_553.72) < 0.01"
+  ],
+  [
+   "Each driver has a low and a high case",
+   "set(sensitivity) == {'benefit', 'upfront', 'run'}"
+  ],
+  [
+   "A 20 percent lower benefit is costed",
+   "abs(min(sensitivity['benefit']) - 36_634.11) < 0.01"
+  ],
+  [
+   "Benefits matter most, then the upfront cost",
+   "list(ranking) == ['benefit', 'upfront', 'run']"
+  ],
+  [
+   "A chart is drawn",
+   "'matplotlib.pyplot' in _sys.modules and len(_sys.modules['matplotlib.pyplot'].get_fignums()) >= 1"
+  ]
+ ]
+}

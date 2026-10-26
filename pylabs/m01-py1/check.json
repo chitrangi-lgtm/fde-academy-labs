@@ -1,0 +1,30 @@
+{
+ "kind": "pylab",
+ "title": "Profile a messy sales extract with pandas",
+ "code_file": "lab.py",
+ "preamble_file": null,
+ "setup": "",
+ "setup_first": true,
+ "checks": [
+  [
+   "Two bad rows are dropped (no quantity, no real date)",
+   "bad_rows == 2"
+  ],
+  [
+   "Seven clean rows remain after removing the duplicate and the bad rows",
+   "len(clean) == 7"
+  ],
+  [
+   "Regions are tidy: North, South, East or West",
+   "set(clean['region']) == {'North', 'South', 'East', 'West'}"
+  ],
+  [
+   "Revenue per region is right",
+   "{k: round(float(v), 2) for k, v in by_region.items()} == {'North': 217.5, 'South': 161.5, 'East': 90.0, 'West': 323.0}"
+  ],
+  [
+   "Products are ranked by revenue",
+   "list(top_products) == ['Gadget', 'Gizmo', 'Widget']"
+  ]
+ ]
+}

@@ -1,0 +1,29 @@
+{
+ "kind": "mission",
+ "title": "Make the approval workflow survive a restart",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "\nimport json as _json\ndef _state(p):\n    return _json.load(open(p))\n",
+ "checks": [
+  [
+   "A new workflow drafts once and waits",
+   "run('a.json') == 'waiting_for_approval' and _state('a.json')['drafts'] == 1"
+  ],
+  [
+   "Restarting does not draft again",
+   "run('b.json') == run('b.json') == 'waiting_for_approval' and _state('b.json')['drafts'] == 1"
+  ],
+  [
+   "Approval sends exactly once, even if called again",
+   "run('c.json') and run('c.json', 'approve') == 'sent' and run('c.json') == 'sent' and run('c.json', 'approve') == 'sent' and _state('c.json')['sent'] == 1"
+  ],
+  [
+   "Rejection ends without sending",
+   "run('d.json') and run('d.json', 'reject') == 'rejected' and run('d.json', 'approve') == 'rejected' and _state('d.json')['sent'] == 0"
+  ],
+  [
+   "State is checkpointed with the agreed fields",
+   "run('e.json') and set(_state('e.json')) >= {'step', 'drafts', 'sent'} and _state('e.json')['step'] == 'waiting_for_approval'"
+  ]
+ ]
+}

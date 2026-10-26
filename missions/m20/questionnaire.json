@@ -1,0 +1,6 @@
+[
+  {"id": "Q1", "question": "Is customer data encrypted at rest and in transit?", "controls": ["enc_rest", "enc_transit"]},
+  {"id": "Q2", "question": "Is access reviewed at least quarterly?", "controls": ["access_review"]},
+  {"id": "Q3", "question": "Are model inputs and outputs logged without personal data?", "controls": ["log_redaction", "log_retention"]},
+  {"id": "Q4", "question": "Is there a tested incident response plan?", "controls": ["ir_plan", "ir_test"]}
+]

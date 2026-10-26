@@ -1,0 +1,29 @@
+{
+ "kind": "mission",
+ "title": "Plan the first sprint within capacity",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "",
+ "checks": [
+  [
+   "WSJF scores are right",
+   "[wsjf(i) for i in BACKLOG] == [3.0, 7.0, 2.5, 8.5, 3.33, 1.08]"
+  ],
+  [
+   "A 13-point sprint is planned in pick order",
+   "plan(BACKLOG, 13) == ['B2', 'B4', 'B5', 'B1']"
+  ],
+  [
+   "A dependency is never picked before its prerequisite",
+   "plan(BACKLOG, 21) == ['B2', 'B4', 'B5', 'B1', 'B3']"
+  ],
+  [
+   "Big items are skipped when they don't fit",
+   "'B6' not in plan(BACKLOG, 21)"
+  ],
+  [
+   "A tiny sprint takes what fits",
+   "plan(BACKLOG, 2) == []"
+  ]
+ ]
+}

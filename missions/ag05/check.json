@@ -1,0 +1,33 @@
+{
+ "kind": "mission",
+ "title": "Retrieve until you have enough, then stop",
+ "code_file": "solution.py",
+ "preamble_file": "provided.py",
+ "setup": "",
+ "checks": [
+  [
+   "Keywords drop stopwords and punctuation",
+   "keywords('What is the notice period for termination?') == ['notice', 'period', 'termination']"
+  ],
+  [
+   "A direct hit stops after one search",
+   "answer('What is the notice period for termination?', search) == {'found': True, 'citations': ['L1', 'L2'], 'searches': ['notice period termination']}"
+  ],
+  [
+   "Synonyms rescue the lawyer's own words",
+   "answer('Staff firing appeal', search) == {'found': True, 'citations': ['L4'], 'searches': ['staff firing appeal', 'employee dismissal appeal']}"
+  ],
+  [
+   "Broadening drops the last keyword",
+   "answer('data breach regulator fines', search) == {'found': True, 'citations': ['L3'], 'searches': ['data breach regulator fines', 'data breach regulator']}"
+  ],
+  [
+   "Nothing found within the budget",
+   "answer('maritime salvage rights law', search) == {'found': False, 'citations': [], 'searches': ['maritime salvage rights law', 'maritime salvage rights', 'maritime salvage']}"
+  ],
+  [
+   "The budget is never exceeded",
+   "len(answer('maritime salvage rights law', search, max_searches=1)['searches']) == 1"
+  ]
+ ]
+}

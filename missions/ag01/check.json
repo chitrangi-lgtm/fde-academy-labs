@@ -1,0 +1,29 @@
+{
+ "kind": "mission",
+ "title": "Stop the runaway agent loop",
+ "code_file": "solution.py",
+ "preamble_file": "provided.py",
+ "setup": "\n_COUNT = {\"n\": 0}\ndef _counted_tools():\n    def lookup(order_id):\n        _COUNT[\"n\"] += 1\n        return TOOLS[\"lookup_order\"](order_id)\n    return {\"lookup_order\": lookup, \"refund_status\": TOOLS[\"refund_status\"]}\ndef _alternating(history):\n    n = sum(1 for h in history if h[\"role\"] == \"assistant\")\n    return {\"tool\": \"lookup_order\", \"args\": {\"order_id\": \"A-1\" if n % 2 == 0 else \"A-2\"}}\ndef _obs(result):\n    return [h[\"content\"] for h in result[\"history\"] if h[\"role\"] == \"tool\"]\n",
+ "checks": [
+  [
+   "A normal run ends with the final answer",
+   "(lambda r: (r['answer'], r['stopped'], r['steps'], _obs(r)))(run_agent('Where is A-1?', scripted({'tool': 'lookup_order', 'args': {'order_id': 'A-1'}}, {'final': 'Shipped.'}), TOOLS)) == ('Shipped.', 'final', 2, ['shipped'])"
+  ],
+  [
+   "An unknown tool becomes an error observation, not a crash",
+   "(lambda r: r['stopped'] == 'final' and _obs(r)[0].startswith('error:') and 'unknown tool' in _obs(r)[0])(run_agent('x', scripted({'tool': 'lookup_ordr', 'args': {'order_id': 'A-1'}}, {'final': 'Sorry.'}), TOOLS))"
+  ],
+  [
+   "A tool that raises becomes an error observation",
+   "(lambda r: r['stopped'] == 'final' and _obs(r)[0].startswith('error:'))(run_agent('x', scripted({'tool': 'lookup_order', 'args': {}}, {'final': 'Done.'}), TOOLS))"
+  ],
+  [
+   "A repeated request is stopped before the third call",
+   "(lambda r: (r['stopped'], _COUNT['n']))(( _COUNT.update(n=0), run_agent('x', scripted({'tool': 'lookup_order', 'args': {'order_id': 'A-2'}}), _counted_tools()))[1]) == ('loop', 2)"
+  ],
+  [
+   "A model that never finishes hits the step cap",
+   "(lambda r: (r['stopped'], r['answer'], r['steps']))(run_agent('x', _alternating, TOOLS, max_steps=6)) == ('max_steps', None, 6)"
+  ]
+ ]
+}

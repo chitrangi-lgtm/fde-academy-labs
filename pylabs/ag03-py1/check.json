@@ -1,0 +1,30 @@
+{
+ "kind": "pylab",
+ "title": "Structured output with a validate-and-retry loop",
+ "code_file": "lab.py",
+ "preamble_file": null,
+ "setup": "def _raises_priority():\n    try:\n        Ticket(ticket_id=\"TCK-1\", priority=\"urgent\", summary=\"Card declined\", category=\"payments\")\n    except Exception:\n        return True\n    return False\ndef _retry_text():\n    try:\n        Ticket.model_validate_json('{\"ticket_id\": \"TCK-881\", \"priority\": \"urgent\", \"summary\": \"Card declined\"}')\n    except Exception as exc:\n        return str(retry_message(exc))\n    return \"\"\n",
+ "setup_first": true,
+ "checks": [
+  [
+   "JSON is pulled out of chatty text",
+   "json.loads(extract_json('Sure: {\"a\": 1} thanks'))['a'] == 1"
+  ],
+  [
+   "The ticket validates on the second answer",
+   "final is not None and final.category == 'payments' and attempts_used == 2"
+  ],
+  [
+   "Unknown priorities are rejected",
+   "_raises_priority()"
+  ],
+  [
+   "The retry message names both failing fields",
+   "all(f in _retry_text() for f in ('priority', 'category'))"
+  ],
+  [
+   "The retry message gives the allowed priorities",
+   "all(p in _retry_text() for p in ('low', 'medium', 'high'))"
+  ]
+ ]
+}

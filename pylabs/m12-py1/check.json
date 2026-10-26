@@ -1,0 +1,34 @@
+{
+ "kind": "pylab",
+ "title": "Heal three suppliers' schema drift with pandas",
+ "code_file": "lab.py",
+ "preamble_file": null,
+ "setup": "",
+ "setup_first": true,
+ "checks": [
+  [
+   "The clean table has the agreed columns",
+   "list(clean.columns) == ['supplier', 'sku', 'price', 'updated']"
+  ],
+  [
+   "Six rows are clean",
+   "len(clean) == 6"
+  ],
+  [
+   "'$1,250.00' becomes 1250.0",
+   "float(clean.set_index('sku').loc['CD-200', 'price']) == 1250.0"
+  ],
+  [
+   "Every SKU looks like AB-100",
+   "clean['sku'].str.fullmatch(r'[A-Z]{2}-\\d{3}').all()"
+  ],
+  [
+   "Dates are ISO strings from all three formats",
+   "sorted(clean['updated'].unique()) == ['2026-03-01', '2026-03-02', '2026-03-03']"
+  ],
+  [
+   "Two rows are quarantined with reasons",
+   "sorted(q['reason'] for q in quarantine) == ['bad price', 'missing sku']"
+  ]
+ ]
+}

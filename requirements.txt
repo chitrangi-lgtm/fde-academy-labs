@@ -1,0 +1,22 @@
+# Docker tier dependencies (Professional Practice P1). Ranges keep the labs installable as libraries evolve;
+# for a reproducible client project, generate a lock file (pip-compile or `uv lock`) and install from it.
+langgraph>=0.2,<2
+langgraph-checkpoint-sqlite>=2.0,<4
+llama-index-core>=0.11,<1
+qdrant-client>=1.18,<1.21        # keep within one minor version of the qdrant/qdrant image in docker-compose.yml
+psycopg[binary]>=3.2,<4
+opentelemetry-sdk>=1.27,<2
+opentelemetry-exporter-otlp>=1.27,<2
+deepeval>=1.4,<4
+pytest>=8,<9
+mcp>=1.2,<2                      # lab 07: the official MCP Python SDK
+smolagents[openai]>=1.20,<2       # lab 09: Hugging Face smolagents
+autogen-agentchat>=0.7,<0.8       # lab 12: Microsoft AutoGen AgentChat
+autogen-ext[openai]>=0.7,<0.8
+google-adk>=1.10,<3               # lab 11: Google Agent Development Kit
+crewai>=1.0,<2                    # lab 13: CrewAI
+# Lab 14 runs on your machine with Terraform: pip install "moto[server]" boto3 for the local AWS emulator.
+# Optional cloud SDKs for lab 03 (only needed with real accounts; the mock endpoint needs none):
+# boto3>=1.35,<2
+# openai>=1.50,<3
+# google-genai>=1.0,<3

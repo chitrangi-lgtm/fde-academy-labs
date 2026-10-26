@@ -1,0 +1,29 @@
+{
+ "kind": "mission",
+ "title": "Show the client what attention attends to",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "\nimport math as _m\ndef _close(a, b, tol=1e-9):\n    if isinstance(a, (list, tuple)):\n        return len(a) == len(b) and all(_close(x, y, tol) for x, y in zip(a, b))\n    return abs(a - b) < tol\ndef _ref(Q, K, V, causal=False):\n    d = len(K[0]); W = []\n    for i, q in enumerate(Q):\n        s = [sum(a * b for a, b in zip(q, k)) / _m.sqrt(d) if not (causal and j > i) else float(\"-inf\") for j, k in enumerate(K)]\n        mx = max(s); e = [_m.exp(x - mx) for x in s]; t = sum(e); W.append([x / t for x in e])\n    return [[sum(w * v[c] for w, v in zip(row, V)) for c in range(len(V[0]))] for row in W], W\n",
+ "checks": [
+  [
+   "softmax sums to 1",
+   "_close(sum(softmax([1.0, 2.0, 3.0])), 1.0)"
+  ],
+  [
+   "softmax survives huge scores",
+   "_close(softmax([1000.0, 1000.0]), [0.5, 0.5])"
+  ],
+  [
+   "Attention outputs and weights are right",
+   "_close(attention(Q, K, V)[0], _ref(Q, K, V)[0]) and _close(attention(Q, K, V)[1], _ref(Q, K, V)[1])"
+  ],
+  [
+   "The causal mask hides later tokens",
+   "_close(attention(Q, K, V, True)[1], _ref(Q, K, V, True)[1]) and attention(Q, K, V, True)[1][0][1] == 0"
+  ],
+  [
+   "Each token's favourite is found",
+   "most_attended(attention(Q, K, V, True)[1]) == [0, 1, 0, 2]"
+  ]
+ ]
+}

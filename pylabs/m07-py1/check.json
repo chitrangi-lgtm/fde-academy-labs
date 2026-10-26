@@ -1,0 +1,34 @@
+{
+ "kind": "pylab",
+ "title": "Semantic search with embeddings in NumPy",
+ "code_file": "lab.py",
+ "preamble_file": null,
+ "setup": "",
+ "setup_first": true,
+ "checks": [
+  [
+   "Perpendicular vectors have cosine 0",
+   "abs(cosine([1, 0], [0, 1])) < 1e-9"
+  ],
+  [
+   "Parallel vectors have cosine 1, whatever their length",
+   "abs(cosine([1, 2], [2, 4]) - 1) < 1e-9"
+  ],
+  [
+   "The login question finds the two sign-in documents",
+   "top_k(queries['login'], 2) == ['d4', 'd1']"
+  ],
+  [
+   "The refund question finds refunds and billing, not the FAQ page",
+   "top_k(queries['refund'], 2) == ['d2', 'd5']"
+  ],
+  [
+   "The address question's best match is the delivery document",
+   "top_k(queries['address'], 1) == ['d3']"
+  ],
+  [
+   "You found what the dot product picks for 'refund'",
+   "dot_winner == 'd6'"
+  ]
+ ]
+}

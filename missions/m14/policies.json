@@ -1,0 +1,5 @@
+[
+  {"tenant": "harbor", "doc_id": "TRV-1", "text": "Travel policy for all staff.\n\nBook economy for flights under six hours.\n\n| Tier | Nightly per diem (USD) |\n|---|---|\n| Tier 1 | 90 |\n| Tier 2 | 70 |\n\nReceipts are needed above 25 dollars."},
+  {"tenant": "harbor", "doc_id": "TRV-2", "text": "Overnight travel needs manager approval.\n\nThe per diem covers meals and local transport."},
+  {"tenant": "kestrel", "doc_id": "K-TRAVEL", "text": "| Tier | Nightly per diem (USD) |\n|---|---|\n| Tier 2 | 95 |"}
+]

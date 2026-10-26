@@ -1,0 +1,14 @@
+{
+  "before": [
+    {"q": "q1", "gold": ["d1"], "retrieved": ["d1", "d4", "d9"]},
+    {"q": "q2", "gold": ["d2", "d7"], "retrieved": ["d3", "d2", "d5"]},
+    {"q": "q3", "gold": ["d3"], "retrieved": ["d8", "d6", "d3"]},
+    {"q": "q4", "gold": ["d4"], "retrieved": ["d4", "d1", "d2"]}
+  ],
+  "after": [
+    {"q": "q1", "gold": ["d1"], "retrieved": ["d9", "d1", "d4"]},
+    {"q": "q2", "gold": ["d2", "d7"], "retrieved": ["d3", "d5", "d6"]},
+    {"q": "q3", "gold": ["d3"], "retrieved": ["d8", "d6", "d5"]},
+    {"q": "q4", "gold": ["d4"], "retrieved": ["d4", "d1", "d2"]}
+  ]
+}

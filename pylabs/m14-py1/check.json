@@ -1,0 +1,26 @@
+{
+ "kind": "pylab",
+ "title": "Hybrid retrieval: TF-IDF plus vectors, fused with RRF",
+ "code_file": "lab.py",
+ "preamble_file": null,
+ "setup": "",
+ "setup_first": true,
+ "checks": [
+  [
+   "RRF rewards ids that rank well in both lists",
+   "rrf([['a', 'b', 'c'], ['c', 'a']]) == ['a', 'c', 'b']"
+  ],
+  [
+   "The two per diem policies come first",
+   "set(hybrid(query, 'harbor', 2)) == {'p2', 'p8'}"
+  ],
+  [
+   "Another tenant's policy never appears",
+   "all(not i in ('p5', 'p6') for i in hybrid(query, 'harbor', 6))"
+  ],
+  [
+   "The other tenant gets its own per diem policy",
+   "hybrid(query, 'kestrel', 1) == ['p6']"
+  ]
+ ]
+}

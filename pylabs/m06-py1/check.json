@@ -1,0 +1,30 @@
+{
+ "kind": "pylab",
+ "title": "Beat a rules baseline with logistic regression",
+ "code_file": "lab.py",
+ "preamble_file": null,
+ "setup": "from sklearn.metrics import f1_score as _f1\n",
+ "setup_first": true,
+ "checks": [
+  [
+   "There is one prediction per test row",
+   "len(y_pred) == 20"
+  ],
+  [
+   "model_f1 is the F1 of your predictions",
+   "abs(model_f1 - _f1(test['fraud'], y_pred)) < 1e-9"
+  ],
+  [
+   "The rule really is weak on this data (F1 under 0.2)",
+   "baseline_f1 < 0.2"
+  ],
+  [
+   "The model reaches F1 of at least 0.6",
+   "model_f1 >= 0.6"
+  ],
+  [
+   "The confusion matrix covers the 20 test rows",
+   "cm.shape == (2, 2) and int(cm.sum()) == 20"
+  ]
+ ]
+}

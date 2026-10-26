@@ -1,0 +1,11 @@
+{"id": "r1", "method": "POST", "path": "/orders", "status": 201, "order_ref": "A-100", "idempotency_key": "k-A-100"}
+{"id": "r2", "method": "POST", "path": "/orders", "status": 503, "order_ref": "A-101", "idempotency_key": null}
+{"id": "r3", "method": "POST", "path": "/orders", "status": 201, "order_ref": "A-101", "idempotency_key": null}
+{"id": "r4", "method": "POST", "path": "/orders", "status": 201, "order_ref": "A-101", "idempotency_key": null}
+{"id": "r5", "method": "GET", "path": "/orders/A-100", "status": 200, "order_ref": "A-100", "idempotency_key": null}
+{"id": "r6", "method": "POST", "path": "/orders", "status": 201, "order_ref": "A-102", "idempotency_key": "k-A-102"}
+{"id": "r7", "method": "POST", "path": "/orders", "status": 201, "order_ref": "A-102", "idempotency_key": "k-A-102"}
+{"id": "r8", "method": "GET", "path": "/orders/A-102", "status": 500, "order_ref": "A-102", "idempotency_key": null}
+{"id": "r9", "method": "GET", "path": "/orders/A-102", "status": 200, "order_ref": "A-102", "idempotency_key": null}
+{"id": "r10", "method": "POST", "path": "/payments", "status": 429, "order_ref": "A-100", "idempotency_key": "p-1"}
+{"id": "r11", "method": "POST", "path": "/payments", "status": 400, "order_ref": "A-101", "idempotency_key": "p-2"}

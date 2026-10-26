@@ -1,0 +1,101 @@
+{
+ "policies": [
+  {
+   "id": "p1",
+   "tenant": "harbor",
+   "text": "Travel expenses over 500 dollars need a manager approval before booking",
+   "vec": [
+    0.9,
+    0.1,
+    0.0,
+    0.1
+   ]
+  },
+  {
+   "id": "p2",
+   "tenant": "harbor",
+   "text": "Table 4: per diem rates by city tier for overnight travel",
+   "vec": [
+    0.7,
+    0.0,
+    0.3,
+    0.0
+   ]
+  },
+  {
+   "id": "p3",
+   "tenant": "harbor",
+   "text": "Laptops are replaced every four years or after a failure",
+   "vec": [
+    0.0,
+    0.9,
+    0.1,
+    0.0
+   ]
+  },
+  {
+   "id": "p4",
+   "tenant": "harbor",
+   "text": "Remote work allowance covers a desk and a chair once",
+   "vec": [
+    0.1,
+    0.4,
+    0.0,
+    0.8
+   ]
+  },
+  {
+   "id": "p5",
+   "tenant": "kestrel",
+   "text": "Travel expenses over 300 dollars need finance approval",
+   "vec": [
+    0.9,
+    0.1,
+    0.0,
+    0.1
+   ]
+  },
+  {
+   "id": "p6",
+   "tenant": "kestrel",
+   "text": "Per diem table for overnight travel, by region",
+   "vec": [
+    0.7,
+    0.0,
+    0.3,
+    0.0
+   ]
+  },
+  {
+   "id": "p7",
+   "tenant": "harbor",
+   "text": "Client gifts above 50 dollars must be declared",
+   "vec": [
+    0.2,
+    0.0,
+    0.9,
+    0.1
+   ]
+  },
+  {
+   "id": "p8",
+   "tenant": "harbor",
+   "text": "Overnight travel per diem: tier 1 cities 90 dollars, tier 2 cities 70 dollars",
+   "vec": [
+    0.6,
+    0.0,
+    0.4,
+    0.0
+   ]
+  }
+ ],
+ "query": {
+  "text": "per diem for overnight travel",
+  "vec": [
+   0.65,
+   0.0,
+   0.35,
+   0.0
+  ]
+ }
+}

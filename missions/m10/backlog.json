@@ -1,0 +1,8 @@
+[
+  {"id": "B1", "title": "Photo upload for repair requests", "value": 8, "time_criticality": 5, "risk_reduction": 2, "effort": 5, "depends_on": []},
+  {"id": "B2", "title": "Single sign-on for staff", "value": 5, "time_criticality": 8, "risk_reduction": 8, "effort": 3, "depends_on": []},
+  {"id": "B3", "title": "Urgency triage model", "value": 9, "time_criticality": 6, "risk_reduction": 5, "effort": 8, "depends_on": ["B1"]},
+  {"id": "B4", "title": "Audit log of every decision", "value": 3, "time_criticality": 5, "risk_reduction": 9, "effort": 2, "depends_on": ["B2"]},
+  {"id": "B5", "title": "Tenant SMS updates", "value": 6, "time_criticality": 3, "risk_reduction": 1, "effort": 3, "depends_on": []},
+  {"id": "B6", "title": "Contractor scheduling sync", "value": 7, "time_criticality": 4, "risk_reduction": 3, "effort": 13, "depends_on": []}
+]

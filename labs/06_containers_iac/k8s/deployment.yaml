@@ -1,0 +1,70 @@
+# Lab 06 — Kubernetes manifests for a local kind cluster.
+#   kind create cluster --name fde
+#   kind load docker-image decision-service:1.0.1 --name fde
+#   kubectl apply -f k8s/
+#   kubectl port-forward svc/decision-service 8080:80
+# The HorizontalPodAutoscaler needs metrics-server, which kind does not install: until you add it, its CPU target
+# shows <unknown>. The app exits on SIGTERM, so old pods stop within a second during a rolling update.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: decision-service
+  labels: { app: decision-service }
+spec:
+  replicas: 2
+  selector:
+    matchLabels: { app: decision-service }
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: { maxUnavailable: 0, maxSurge: 1 }
+  template:
+    metadata:
+      labels: { app: decision-service }
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+      containers:
+        - name: decision-service
+          image: decision-service:1.0.1
+          imagePullPolicy: IfNotPresent
+          ports: [{ containerPort: 8080 }]
+          env:
+            - name: DSCR_THRESHOLD
+              value: "1.25"
+          resources:
+            requests: { cpu: 100m, memory: 64Mi }
+            limits: { cpu: 500m, memory: 128Mi }
+          readinessProbe:
+            httpGet: { path: /health, port: 8080 }
+            periodSeconds: 5
+          livenessProbe:
+            httpGet: { path: /health, port: 8080 }
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: decision-service
+spec:
+  selector: { app: decision-service }
+  ports: [{ port: 80, targetPort: 8080 }]
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: decision-service
+spec:
+  scaleTargetRef: { apiVersion: apps/v1, kind: Deployment, name: decision-service }
+  minReplicas: 2
+  maxReplicas: 6
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target: { type: Utilization, averageUtilization: 70 }

@@ -1,0 +1,33 @@
+{
+ "kind": "mission",
+ "title": "Give the assistant a memory that fits its budget",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "\ndef _words(ctx):\n    return sum(len(t.split()) for r, t in ctx if not (r == \"system\" and t.startswith(\"Summary:\")))\ndef _long():\n    m = Memory(12)\n    m.add(\"user\", \"I am allergic to penicillin\", pinned=True)\n    for i in range(1, 6):\n        m.add(\"user\", f\"message number {i} about my repeat prescription\")\n    return m.context()\n",
+ "checks": [
+  [
+   "Contact details are masked before storing",
+   "(lambda m: (m.add('user', 'Call 555 010 0199 or mail sam@example.com'), m.context())[1])(Memory(100)) == [('user', 'Call [NUMBER] or mail [EMAIL]')]"
+  ],
+  [
+   "Under budget, nothing changes",
+   "(lambda m: (m.add('user', 'hello there'), m.add('assistant', 'hi, how can I help'), m.context())[2])(Memory(100)) == [('user', 'hello there'), ('assistant', 'hi, how can I help')]"
+  ],
+  [
+   "The budget is respected",
+   "_words(_long()) <= 12"
+  ],
+  [
+   "Pinned facts survive",
+   "('user', 'I am allergic to penicillin') in _long() and _words(_long()) <= 12"
+  ],
+  [
+   "The newest message is kept",
+   "_long()[-1] == ('user', 'message number 5 about my repeat prescription') and _words(_long()) <= 12"
+  ],
+  [
+   "Removed messages are counted in one summary line at the start",
+   "_long()[0] == ('system', 'Summary: 4 earlier messages removed') and sum(1 for r, t in _long() if t.startswith('Summary:')) == 1"
+  ]
+ ]
+}

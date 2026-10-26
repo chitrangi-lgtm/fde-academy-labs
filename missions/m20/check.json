@@ -1,0 +1,29 @@
+{
+ "kind": "mission",
+ "title": "Answer the security questionnaire from evidence",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "",
+ "checks": [
+  [
+   "Fully implemented controls are answered Yes with all evidence",
+   "answer(QUESTIONS, REGISTER)['Q1'] == {'answer': 'Yes', 'evidence': ['EV-03', 'EV-04', 'EV-12']}"
+  ],
+  [
+   "A partly implemented control is Partial",
+   "answer(QUESTIONS, REGISTER)['Q2'] == {'answer': 'Partial', 'evidence': ['EV-20']}"
+  ],
+  [
+   "One of two controls in place is Partial",
+   "answer(QUESTIONS, REGISTER)['Q3'] == {'answer': 'Partial', 'evidence': ['EV-31']}"
+  ],
+  [
+   "Missing or planned controls are No",
+   "answer(QUESTIONS, REGISTER)['Q4'] == {'answer': 'No', 'evidence': []}"
+  ],
+  [
+   "The gap list is what must close before go-live",
+   "gaps(answer(QUESTIONS, REGISTER)) == ['Q2', 'Q3', 'Q4']"
+  ]
+ ]
+}

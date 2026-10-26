@@ -1,0 +1,29 @@
+{
+ "kind": "mission",
+ "title": "Review the deployment before the client's security team does",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "import json as _j\n",
+ "checks": [
+  [
+   "Every problem in the current files is reported",
+   "review(open('Dockerfile').read(), _j.load(open('deployment.json'))) == ['LATEST_TAG', 'NO_LIMITS', 'NO_PROBES', 'PRIVILEGED', 'ROOT_USER', 'SECRET_IN_ENV', 'WRITABLE_ROOT_FS']"
+  ],
+  [
+   "The fixed files pass clean",
+   "review(open('Dockerfile.fixed').read(), _j.load(open('deployment.fixed.json'))) == []"
+  ],
+  [
+   "An untagged base image counts as latest",
+   "'LATEST_TAG' in review('FROM ubuntu\\nUSER app\\n', _j.load(open('deployment.fixed.json')))"
+  ],
+  [
+   "Switching back to root is caught",
+   "'ROOT_USER' in review('FROM python:3.12-slim\\nUSER app\\nUSER root\\n', _j.load(open('deployment.fixed.json')))"
+  ],
+  [
+   "Secrets from a secret store are fine",
+   "'SECRET_IN_ENV' not in review(open('Dockerfile.fixed').read(), _j.load(open('deployment.fixed.json')))"
+  ]
+ ]
+}

@@ -1,0 +1,33 @@
+{
+ "kind": "mission",
+ "title": "Find the retrieval regression and the trace leak",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "",
+ "checks": [
+  [
+   "Hit rate at 3 before and after the rebuild",
+   "(hit_rate(EVAL['before']), hit_rate(EVAL['after'])) == (1.0, 0.5)"
+  ],
+  [
+   "MRR before and after the rebuild",
+   "(mrr(EVAL['before']), mrr(EVAL['after'])) == (0.708, 0.375)"
+  ],
+  [
+   "Hit rate respects k",
+   "hit_rate(EVAL['before'], k=1) == 0.5"
+  ],
+  [
+   "Nearest-rank p95",
+   "p95([5, 1, 3, 2, 4]) == 5 and p95(list(range(1, 101))) == 95"
+  ],
+  [
+   "p95 per span name",
+   "p95_by_span(SPANS) == {'retrieve': 610, 'generate': 1500, 'guard': 30}"
+  ],
+  [
+   "Prompt and completion leaks are found",
+   "leaks(SPANS) == ['s2', 's6']"
+  ]
+ ]
+}

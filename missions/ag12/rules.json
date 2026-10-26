@@ -1,0 +1,1 @@
+{"min_requests": 500, "max_error_increase": 0.01, "max_latency_increase": 0.10, "max_eval_drop": 0.02}

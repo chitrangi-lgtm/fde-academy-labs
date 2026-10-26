@@ -1,0 +1,72 @@
+{
+ "schema": {
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+   "order_id",
+   "amount",
+   "currency",
+   "reason"
+  ],
+  "properties": {
+   "order_id": {
+    "type": "string",
+    "pattern": "^ORD-[0-9]{6}$"
+   },
+   "amount": {
+    "type": "number",
+    "exclusiveMinimum": 0,
+    "maximum": 500
+   },
+   "currency": {
+    "enum": [
+     "USD",
+     "EUR",
+     "GBP"
+    ]
+   },
+   "reason": {
+    "type": "string",
+    "minLength": 5
+   }
+  }
+ },
+ "calls": [
+  {
+   "order_id": "ORD-104233",
+   "amount": 42.5,
+   "currency": "USD",
+   "reason": "Item arrived damaged"
+  },
+  {
+   "order_id": "ORD-104234",
+   "amount": 750,
+   "currency": "USD",
+   "reason": "Customer changed mind"
+  },
+  {
+   "order_id": "104235",
+   "amount": 10,
+   "currency": "USD",
+   "reason": "Late delivery"
+  },
+  {
+   "order_id": "ORD-104236",
+   "amount": 19.99,
+   "currency": "JPY",
+   "reason": "Wrong size sent"
+  },
+  {
+   "order_id": "ORD-104237",
+   "amount": 5,
+   "currency": "EUR"
+  },
+  {
+   "order_id": "ORD-104238",
+   "amount": 12,
+   "currency": "GBP",
+   "reason": "Duplicate charge",
+   "approve": true
+  }
+ ]
+}

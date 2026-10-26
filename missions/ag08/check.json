@@ -1,0 +1,33 @@
+{
+ "kind": "mission",
+ "title": "An MCP-style tool server that follows the protocol",
+ "code_file": "solution.py",
+ "preamble_file": "provided.py",
+ "setup": "\nimport json as _j\ndef _r(msg):\n    out = handle(msg if isinstance(msg, str) else _j.dumps(msg))\n    return None if out is None else _j.loads(out)\ndef _call(args, name=\"get_claim\", id=5):\n    return _r({\"jsonrpc\": \"2.0\", \"id\": id, \"method\": \"tools/call\", \"params\": {\"name\": name, \"arguments\": args}})\n",
+ "checks": [
+  [
+   "initialize describes the server",
+   "(lambda r: r['id'] == 1 and r['result']['protocolVersion'] == '2025-06-18' and r['result']['capabilities'] == {'tools': {}} and r['result']['serverInfo'] == {'name': 'claims', 'version': '1.0'})(_r({'jsonrpc': '2.0', 'id': 1, 'method': 'initialize', 'params': {}}))"
+  ],
+  [
+   "tools/list publishes the tool and its schema",
+   "(lambda t: t['name'] == 'get_claim' and t['inputSchema']['required'] == ['claim_id'] and t['description'])(_r({'jsonrpc': '2.0', 'id': 2, 'method': 'tools/list'})['result']['tools'][0])"
+  ],
+  [
+   "tools/call returns text content",
+   "_call({'claim_id': 'CL-101'})['result'] == {'content': [{'type': 'text', 'text': 'Claim CL-101: approved, payment on 3 November'}], 'isError': False}"
+  ],
+  [
+   "A tool-level failure is a result with isError",
+   "_call({'claim_id': 'CL-999'})['result']['isError'] is True"
+  ],
+  [
+   "Protocol errors use the right codes",
+   "[_r('{not json')['error']['code'], _r({'jsonrpc': '2.0', 'id': 3, 'method': 'resources/list'})['error']['code'], _call({}, id=4)['error']['code'], _call({'claim_id': 'CL-100'}, name='delete_claim')['error']['code'], _r({'id': 6, 'method': 'tools/list'})['error']['code']] == [-32700, -32601, -32602, -32602, -32600]"
+  ],
+  [
+   "A parse error has a null id; a notification gets no reply",
+   "_r('{not json')['id'] is None and _r({'jsonrpc': '2.0', 'method': 'notifications/initialized'}) is None"
+  ]
+ ]
+}

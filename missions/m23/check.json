@@ -1,0 +1,33 @@
+{
+ "kind": "mission",
+ "title": "A circuit breaker that survives the chaos drill",
+ "code_file": "solution.py",
+ "preamble_file": "provided.py",
+ "setup": "\ndef _raises(fn, exc=Exception):\n    try:\n        fn()\n    except exc:\n        return True\n    except Exception:\n        return False\n    return False\n\ndef _boom():\n    raise ConnectionError(\"policy service down\")\n_CALLS = []\ndef _tripped():\n    c = FakeClock()\n    b = CircuitBreaker(3, 30, c)\n    for _ in range(3):\n        _raises(lambda: b.call(_boom))\n    return c, b\ndef _fail_fast():\n    c, b = _tripped()\n    def counted():\n        _CALLS.append(1)\n        return \"x\"\n    blocked = _raises(lambda: b.call(counted), CircuitOpen)\n    return blocked and not _CALLS\ndef _reset_by_success():\n    b = CircuitBreaker(3, 30, FakeClock())\n    _raises(lambda: b.call(_boom)); _raises(lambda: b.call(_boom))\n    b.call(lambda: 1)\n    _raises(lambda: b.call(_boom)); _raises(lambda: b.call(_boom))\n    return b.state\ndef _recover():\n    c, b = _tripped()\n    c.tick(30)\n    return b.call(lambda: \"back\"), b.state\ndef _failed_trial():\n    c, b = _tripped()\n    c.tick(31)\n    _raises(lambda: b.call(_boom))\n    state = b.state\n    c.tick(29)\n    still_blocked = _raises(lambda: b.call(lambda: 1), CircuitOpen)\n    c.tick(1)\n    return state, still_blocked, b.call(lambda: \"ok\") == \"ok\"\n",
+ "checks": [
+  [
+   "Successful calls pass straight through",
+   "CircuitBreaker(clock=FakeClock()).call(lambda: 42) == 42"
+  ],
+  [
+   "Three failures in a row open the breaker",
+   "_tripped()[1].state == 'open'"
+  ],
+  [
+   "While open, calls fail fast without touching the service",
+   "_fail_fast()"
+  ],
+  [
+   "A success resets the failure count",
+   "_reset_by_success() == 'closed' and _tripped()[1].state == 'open'"
+  ],
+  [
+   "After the timeout one trial call is let through and a success closes it",
+   "_fail_fast() and _recover() == ('back', 'closed')"
+  ],
+  [
+   "A failed trial reopens it for another full timeout",
+   "_failed_trial() == ('open', True, True)"
+  ]
+ ]
+}

@@ -1,0 +1,33 @@
+{
+ "kind": "mission",
+ "title": "Validate and gate tool calls before they run",
+ "code_file": "solution.py",
+ "preamble_file": "provided.py",
+ "setup": "_S = None\ndef _schema():\n    return REGISTRY['create_refund']['schema']\n",
+ "checks": [
+  [
+   "A good call validates",
+   "validate({'order_id': 'ORD-104233', 'amount': 42.5, 'currency': 'USD'}, _schema()) == []"
+  ],
+  [
+   "Every problem is named by field",
+   "validate({'order_id': '104233', 'amount': 750, 'currency': 'JPY', 'urgent': True}, _schema()) == sorted(['amount: above maximum', \"currency: not one of ['USD', 'EUR', 'GBP']\", 'order_id: does not match pattern', 'urgent: not allowed'])"
+  ],
+  [
+   "Missing fields and wrong types are caught; a boolean is not a number",
+   "validate({'order_id': 'ORD-000001', 'amount': True}, _schema()) == ['amount: wrong type', 'currency: required']"
+  ],
+  [
+   "Unknown tools and invalid calls never run",
+   "execute({'tool': 'wire_money', 'args': {}}, REGISTRY) == {'ok': False, 'error': 'unknown tool'} and execute({'tool': 'create_refund', 'args': {'order_id': 'x', 'amount': 1, 'currency': 'USD'}}, REGISTRY)['ok'] is False and REFUNDS == []"
+  ],
+  [
+   "A large refund waits for a human",
+   "execute({'tool': 'create_refund', 'args': {'order_id': 'ORD-000002', 'amount': 250, 'currency': 'USD'}}, REGISTRY) == {'ok': False, 'error': 'approval required'} and REFUNDS == []"
+  ],
+  [
+   "Approved or small refunds run once",
+   "execute({'tool': 'create_refund', 'args': {'order_id': 'ORD-000002', 'amount': 250, 'currency': 'USD'}}, REGISTRY, approved=True)['ok'] and execute({'tool': 'create_refund', 'args': {'order_id': 'ORD-000003', 'amount': 20, 'currency': 'EUR'}}, REGISTRY)['ok'] and REFUNDS == [('ORD-000002', 250), ('ORD-000003', 20)]"
+  ]
+ ]
+}

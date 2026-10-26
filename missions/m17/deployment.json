@@ -1,0 +1,5 @@
+{"spec": {"template": {"spec": {"containers": [{"name": "api", "image": "gantry/api:1.4.2",
+  "env": [{"name": "LOG_LEVEL", "value": "info"}, {"name": "DB_PASSWORD", "value": "hunter2"}, {"name": "API_TOKEN", "valueFrom": {"secretKeyRef": {"name": "api", "key": "token"}}}],
+  "resources": {"limits": {"memory": "512Mi"}},
+  "readinessProbe": {"httpGet": {"path": "/ready", "port": 8080}},
+  "securityContext": {"privileged": true}}]}}}}

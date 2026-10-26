@@ -1,0 +1,37 @@
+{
+ "kind": "mission",
+ "title": "Table-aware chunking with tenant-safe retrieval",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "_CH = None\ndef _chunks():\n    return [c for d in DOCS for c in chunk(d)]\n",
+ "checks": [
+  [
+   "Paragraphs and table rows become separate chunks",
+   "[c['n'] for c in chunk(DOCS[0])] == [1, 2, 3, 4, 5] and len(chunk(DOCS[1])) == 2"
+  ],
+  [
+   "Every table row carries the header",
+   "all(c['text'].startswith('| Tier | Nightly per diem (USD) |') for c in chunk(DOCS[0]) if 'Tier ' in c['text'])"
+  ],
+  [
+   "A row chunk keeps its own values",
+   "any('Tier 2 | 70' in c['text'] for c in chunk(DOCS[0]))"
+  ],
+  [
+   "Search finds the right row for its tenant",
+   "[(c['doc_id'], c['n']) for c in search(_chunks(), 'tier 2 nightly per diem', 'harbor')] == [('TRV-1', 4)]"
+  ],
+  [
+   "Another tenant's chunks never appear",
+   "all(c['tenant'] == 'harbor' for c in search(_chunks(), 'tier 2 nightly per diem', 'harbor', k=10))"
+  ],
+  [
+   "The other tenant gets its own rate",
+   "'95' in search(_chunks(), 'tier 2 nightly per diem', 'kestrel')[0]['text']"
+  ],
+  [
+   "Citations name the document and chunk",
+   "cite(search(_chunks(), 'tier 2 nightly per diem', 'harbor')[0]) == '[TRV-1#4]'"
+  ]
+ ]
+}

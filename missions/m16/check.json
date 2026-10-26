@@ -1,0 +1,33 @@
+{
+ "kind": "mission",
+ "title": "Pre-retrieval access control and redaction",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "",
+ "checks": [
+  [
+   "A claims agent sees claims documents up to their clearance",
+   "visible(USERS['claims_agent'], DOCS) == ['D1', 'D2', 'D4']"
+  ],
+  [
+   "An auditor sees across departments, within clearance",
+   "visible(USERS['auditor'], DOCS) == ['D1', 'D2', 'D3', 'D4']"
+  ],
+  [
+   "An intern sees nothing above internal",
+   "visible(USERS['intern'], DOCS) == ['D1', 'D4']"
+  ],
+  [
+   "Another company's documents are never visible",
+   "all('D6' not in visible(u, DOCS) for u in USERS.values())"
+  ],
+  [
+   "Emails and phones are masked",
+   "redact('Mail jo@ashgrove.example or call +1 555 010 0199 or 555-010-0123.') == 'Mail [EMAIL] or call [PHONE] or [PHONE].'"
+  ],
+  [
+   "Real card numbers are masked, order numbers are not",
+   "redact('card 4111 1111 1111 1111 and 4111-1111-1111-1111, order 1234567890123') == 'card [CARD] and [CARD], order 1234567890123'"
+  ]
+ ]
+}

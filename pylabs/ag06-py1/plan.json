@@ -1,0 +1,32 @@
+{
+ "tasks": {
+  "collect": 2,
+  "clean": 3,
+  "embed": 4,
+  "index": 1,
+  "policy_review": 6,
+  "approve": 1,
+  "launch": 1
+ },
+ "depends_on": {
+  "clean": [
+   "collect"
+  ],
+  "embed": [
+   "clean"
+  ],
+  "index": [
+   "embed"
+  ],
+  "policy_review": [
+   "collect"
+  ],
+  "approve": [
+   "policy_review"
+  ],
+  "launch": [
+   "index",
+   "approve"
+  ]
+ }
+}

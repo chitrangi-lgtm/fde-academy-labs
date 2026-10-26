@@ -1,0 +1,4 @@
+Rules of thumb (GPU memory, training):
+- Full fine-tune with Adam in mixed precision: about 16 bytes per parameter
+- LoRA on a 16-bit base model: about 2 bytes per parameter + 2 GB for activations and adapters
+- QLoRA on a 4-bit base model: about 0.5 bytes per parameter + 2 GB

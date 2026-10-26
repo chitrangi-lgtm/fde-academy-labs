@@ -1,0 +1,9 @@
+sku,price,effective,source
+lp-100,19.99,2026-01-01,catalog
+LP-100 ,21.50,2026-03-01,catalog
+lp-101,5.00,2026-02-01,catalog
+LP-102,12.00,2026-01-15,catalog
+lp-102,12.00,2026-01-15,email
+LP-103,7.95,2026-02-10,email
+lp-103,7.25,2026-02-10,catalog
+LP-104,,2026-02-01,catalog

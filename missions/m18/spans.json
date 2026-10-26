@@ -1,0 +1,10 @@
+[
+  {"id": "s1", "name": "retrieve", "duration_ms": 120, "attributes": {"k": 3}},
+  {"id": "s2", "name": "generate", "duration_ms": 900, "attributes": {"model": "m", "gen_ai.prompt": "My card number is..."}},
+  {"id": "s3", "name": "retrieve", "duration_ms": 140, "attributes": {"k": 3}},
+  {"id": "s4", "name": "generate", "duration_ms": 1100, "attributes": {"model": "m", "tokens": 210}},
+  {"id": "s5", "name": "retrieve", "duration_ms": 610, "attributes": {"k": 3}},
+  {"id": "s6", "name": "generate", "duration_ms": 1500, "attributes": {"llm.completion_text": "Your balance is..."}},
+  {"id": "s7", "name": "retrieve", "duration_ms": 130, "attributes": {}},
+  {"id": "s8", "name": "guard", "duration_ms": 30, "attributes": {"policy": "pii"}}
+]

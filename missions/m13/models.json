@@ -1,0 +1,8 @@
+{
+  "models": [
+    {"name": "atlas-large", "input": 3.00, "cached": 0.30, "output": 15.00, "p95_ms": 2100},
+    {"name": "atlas-mid", "input": 1.00, "cached": 0.10, "output": 5.00, "p95_ms": 1400},
+    {"name": "swift-small", "input": 0.25, "cached": 0.025, "output": 1.25, "p95_ms": 900}
+  ],
+  "traffic": {"requests_per_day": 40000, "prefix_tokens": 3000, "variable_tokens": 500, "output_tokens": 300}
+}

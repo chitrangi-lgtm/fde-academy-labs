@@ -1,0 +1,33 @@
+{
+ "kind": "mission",
+ "title": "Fit the documents into the context budget",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "",
+ "checks": [
+  [
+   "A fully mergeable word is one token",
+   "bpe('lower', MERGES) == ['lower']"
+  ],
+  [
+   "Merges follow rule priority",
+   "bpe('newest', MERGES) == ['new', 'est']"
+  ],
+  [
+   "Unmergeable letters stay single",
+   "bpe('slow', MERGES) == ['s', 'low'] and bpe('xyz', MERGES) == ['x', 'y', 'z']"
+  ],
+  [
+   "A sentence's tokens add up",
+   "count_tokens('lower newest slow', MERGES) == 5"
+  ],
+  [
+   "The packer skips a chunk that overflows and keeps trying",
+   "pack([('c1', 'lower lower'), ('c2', 'newest slow slow'), ('c3', 'new')], 6, MERGES) == ['c1', 'c3']"
+  ],
+  [
+   "Nothing fits a zero budget",
+   "pack([('c1', 'lower')], 0, MERGES) == []"
+  ]
+ ]
+}

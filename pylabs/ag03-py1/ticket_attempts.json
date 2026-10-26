@@ -1,0 +1,4 @@
+[
+ "Here you go: {\"ticket_id\": \"TCK-881\", \"priority\": \"urgent\", \"summary\": \"Card declined at checkout\"}",
+ "{\"ticket_id\": \"TCK-881\", \"priority\": \"high\", \"summary\": \"Card declined at checkout\", \"category\": \"payments\"}"
+]

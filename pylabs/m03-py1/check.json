@@ -1,0 +1,30 @@
+{
+ "kind": "pylab",
+ "title": "Answer the finance team's questions with DuckDB SQL",
+ "code_file": "lab.py",
+ "preamble_file": null,
+ "setup": "",
+ "setup_first": true,
+ "checks": [
+  [
+   "Bayport is the top city",
+   "revenue_by_city.iloc[0]['city'] == 'Bayport'"
+  ],
+  [
+   "Bayport's revenue is 490.25",
+   "round(float(revenue_by_city.iloc[0]['revenue']), 2) == 490.25"
+  ],
+  [
+   "Only the three cities with orders appear",
+   "len(revenue_by_city) == 3"
+  ],
+  [
+   "The customer with no orders is found with a LEFT JOIN",
+   "list(no_orders) == ['Lin Zhao']"
+  ],
+  [
+   "Monthly revenue has a running total",
+   "[round(float(x), 2) for x in monthly['running_total']] == [200.5, 545.5, 930.5]"
+  ]
+ ]
+}

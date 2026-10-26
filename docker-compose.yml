@@ -1,0 +1,56 @@
+# Docker tier for Professional Practice P1: the real tools, running locally.
+# Start:  docker compose up -d        Stop: docker compose down        Reset data: docker compose down -v
+# Image tags are pinned; bump them deliberately and re-run the labs.
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.19.2
+    ports: ["6333:6333"]
+    volumes: ["qdrant_data:/qdrant/storage"]
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: fde
+      POSTGRES_PASSWORD: fde_local_only        # local lab credential; never reuse outside this stack
+      POSTGRES_DB: fde
+    ports: ["5432:5432"]
+    volumes: ["pg_data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fde"]
+      interval: 5s
+      retries: 10
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.111.0
+    command: ["--config=/etc/otel/config.yaml"]
+    volumes: ["./otel-collector.yaml:/etc/otel/config.yaml:ro"]
+    ports: ["4317:4317", "4318:4318"]
+    depends_on: [jaeger]
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.62.0
+    environment:
+      COLLECTOR_OTLP_ENABLED: "true"
+    ports: ["16686:16686"]
+
+  labs:
+    build: { context: ., dockerfile: labs.Dockerfile }
+    image: fde-realtools-labs:local
+    working_dir: /work/labs
+    volumes: [".:/work"]
+    environment:
+      QDRANT_URL: http://qdrant:6333
+      PG_DSN: postgresql://fde:fde_local_only@postgres:5432/fde
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
+      DEEPEVAL_TELEMETRY_OPT_OUT: "YES"          # labs never send usage telemetry
+      PYTHONDONTWRITEBYTECODE: "1"
+    command: ["sleep", "infinity"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+
+volumes:
+  qdrant_data:
+  pg_data:

@@ -1,0 +1,29 @@
+{
+ "kind": "mission",
+ "title": "Score the agent runs the way the board will ask",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "",
+ "checks": [
+  [
+   "Success rate over all runs",
+   "evaluate(RUNS)['success_rate'] == 0.708"
+  ],
+  [
+   "pass@3: tasks done at least once",
+   "evaluate(RUNS)['pass_at_k'] == 0.875"
+  ],
+  [
+   "pass^3: tasks done every time",
+   "evaluate(RUNS)['pass_hat_k'] == 0.5"
+  ],
+  [
+   "Steps, tool accuracy and cost per success",
+   "(evaluate(RUNS)['avg_steps'], evaluate(RUNS)['tool_accuracy'], evaluate(RUNS)['cost_per_success']) == (6.25, 0.798, 0.099)"
+  ],
+  [
+   "Unreliable tasks are named",
+   "unreliable(RUNS) == ['T2', 'T5', 'T7']"
+  ]
+ ]
+}

@@ -1,0 +1,33 @@
+{
+ "kind": "mission",
+ "title": "Parse what the model actually sends back",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "\ndef _raises(fn, exc=Exception):\n    try:\n        fn()\n    except exc:\n        return True\n    except Exception:\n        return False\n    return False\n",
+ "checks": [
+  [
+   "A fenced, chatty answer is rescued",
+   "extract('Sure! Here it is:\\n```json\\n{\"a\": 1}\\n```\\nAnything else?') == {'a': 1}"
+  ],
+  [
+   "Trailing commas are repaired",
+   "extract('{\"a\": [1, 2,], \"b\": {\"c\": 3,},}') == {'a': [1, 2], 'b': {'c': 3}}"
+  ],
+  [
+   "No JSON at all is a clear error",
+   "_raises(lambda: extract('I could not create the ticket.'), ValueError)"
+  ],
+  [
+   "A valid ticket gets default tags",
+   "parse_ticket('{\"ticket_id\": \"TCK-881\", \"priority\": \"high\", \"summary\": \"Card declined\"}') == ({'ticket_id': 'TCK-881', 'priority': 'high', 'summary': 'Card declined', 'tags': []}, [])"
+  ],
+  [
+   "Every invalid field is reported",
+   "parse_ticket('{\"ticket_id\": \"881\", \"priority\": \"urgent\", \"summary\": \"Hi\", \"tags\": [\"a\", 2]}') == (None, ['priority: must be one of low, medium, high', 'summary: must be at least 5 characters', 'tags: must be a list of strings', 'ticket_id: must look like TCK-123'])"
+  ],
+  [
+   "The retry message lists each error and asks for JSON only",
+   "(lambda m: m.count('\\n- ') + m.startswith('- ') == 2 and 'json' in m.lower())(retry_prompt(['priority: must be one of low, medium, high', 'summary: must be at least 5 characters']))"
+  ]
+ ]
+}

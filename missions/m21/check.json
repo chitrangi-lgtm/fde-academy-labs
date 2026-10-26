@@ -1,0 +1,29 @@
+{
+ "kind": "mission",
+ "title": "The go-live gate",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "",
+ "checks": [
+  [
+   "This week is a NO-GO, for the right reasons",
+   "gate(DATA['week'], DATA['thresholds'], DATA['issues']) == {'decision': 'NO-GO', 'reasons': sorted(['p95_latency_ms is 2350, above the maximum of 2000', 'uptime was not measured', 'open sev2 issue INC-7'])}"
+  ],
+  [
+   "A clean week is a GO",
+   "gate({'answer_accuracy': 0.95, 'p95_latency_ms': 1500, 'escalation_rate': 0.1, 'uptime': 0.999}, DATA['thresholds'], []) == {'decision': 'GO', 'reasons': []}"
+  ],
+  [
+   "Minimums are enforced",
+   "gate({'answer_accuracy': 0.85}, {'answer_accuracy': {'min': 0.9}}, [])['reasons'] == ['answer_accuracy is 0.85, below the minimum of 0.9']"
+  ],
+  [
+   "Sev3 and closed issues do not block",
+   "gate({}, {}, [{'id': 'A', 'severity': 'sev3', 'status': 'open'}, {'id': 'B', 'severity': 'sev1', 'status': 'closed'}])['decision'] == 'GO'"
+  ],
+  [
+   "An open sev1 blocks",
+   "gate({}, {}, [{'id': 'X1', 'severity': 'sev1', 'status': 'open'}]) == {'decision': 'NO-GO', 'reasons': ['open sev1 issue X1']}"
+  ]
+ ]
+}

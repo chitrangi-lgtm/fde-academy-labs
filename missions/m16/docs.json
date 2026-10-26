@@ -1,0 +1,15 @@
+{
+  "docs": [
+    {"id": "D1", "tenant": "ashgrove", "department": "claims", "classification": "public"},
+    {"id": "D2", "tenant": "ashgrove", "department": "claims", "classification": "confidential"},
+    {"id": "D3", "tenant": "ashgrove", "department": "finance", "classification": "confidential"},
+    {"id": "D4", "tenant": "ashgrove", "department": "finance", "classification": "internal"},
+    {"id": "D5", "tenant": "ashgrove", "department": "claims", "classification": "restricted"},
+    {"id": "D6", "tenant": "northway", "department": "claims", "classification": "public"}
+  ],
+  "users": {
+    "claims_agent": {"tenant": "ashgrove", "department": "claims", "clearance": "confidential", "roles": ["staff"]},
+    "auditor": {"tenant": "ashgrove", "department": "audit", "clearance": "confidential", "roles": ["auditor"]},
+    "intern": {"tenant": "ashgrove", "department": "finance", "clearance": "internal", "roles": ["staff"]}
+  }
+}

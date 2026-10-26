@@ -1,0 +1,33 @@
+{
+ "kind": "mission",
+ "title": "Load the drifting partner feed without losing a row",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "\ndef _raises(fn, exc=Exception):\n    try:\n        fn()\n    except exc:\n        return True\n    except Exception:\n        return False\n    return False\nfrom decimal import Decimal as _D\n",
+ "checks": [
+  [
+   "Clean records load with ISO dates and Decimal amounts",
+   "[(g['id'], g['date'], g['amount'], g['currency']) for g in load('feed.jsonl')[0]] == [('P1', '2026-03-01', _D('120.00'), 'USD'), ('P2', '2026-03-02', _D('1250.50'), 'USD'), ('P3', '2026-03-03', _D('75'), 'EUR')]"
+  ],
+  [
+   "Money is Decimal, never float",
+   "load('feed.jsonl')[0] and all(type(g['amount']) is _D for g in load('feed.jsonl')[0])"
+  ],
+  [
+   "Every bad line is quarantined by line number",
+   "[q[0] for q in load('feed.jsonl')[1]] == [4, 5, 6, 7, 8]"
+  ],
+  [
+   "Each quarantined line has a reason",
+   "load('feed.jsonl')[1] and all(isinstance(q[1], str) and len(q[1]) >= 5 for q in load('feed.jsonl')[1])"
+  ],
+  [
+   "Nothing is lost",
+   "len(load('feed.jsonl')[0]) + len(load('feed.jsonl')[1]) == 8"
+  ],
+  [
+   "normalize refuses a record without an amount, and accepts a good one",
+   "_raises(lambda: normalize({'id': 'X', 'date': '2026-01-01', 'currency': 'USD'}), ValueError) and normalize({'id': 'X', 'date': '2026-01-01', 'amount': '1', 'currency': 'USD'})['amount'] == _D('1')"
+  ]
+ ]
+}

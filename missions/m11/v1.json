@@ -1,0 +1,5 @@
+{
+  "GET /claims/{id}": {"request": {}, "response": {"id": {"type": "string"}, "status": {"type": "string"}, "amount": {"type": "number"}, "updated": {"type": "string"}}},
+  "POST /claims": {"request": {"policy_id": {"type": "string", "required": true}, "amount": {"type": "number", "required": true}, "note": {"type": "string", "required": false}}, "response": {"id": {"type": "string"}}},
+  "GET /policies/{id}": {"request": {}, "response": {"id": {"type": "string"}}}
+}

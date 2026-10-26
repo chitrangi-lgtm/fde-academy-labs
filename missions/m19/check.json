@@ -1,0 +1,33 @@
+{
+ "kind": "mission",
+ "title": "Will the fine-tune fit on a free GPU?",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "\ndef _raises(fn, exc=Exception):\n    try:\n        fn()\n    except exc:\n        return True\n    except Exception:\n        return False\n    return False\n",
+ "checks": [
+  [
+   "Full fine-tuning estimate",
+   "vram_gb(7, 'full') == 112.0"
+  ],
+  [
+   "LoRA and QLoRA estimates",
+   "vram_gb(7, 'lora') == 16.0 and vram_gb(7, 'qlora') == 5.5 and vram_gb(1.5, 'qlora') == 2.8"
+  ],
+  [
+   "An unknown method is refused",
+   "_raises(lambda: vram_gb(7, 'magic'), ValueError)"
+  ],
+  [
+   "LoRA trains a tiny share of the model",
+   "lora_params(4096, 32, 16) == 16777216"
+  ],
+  [
+   "The right method for a free 16 GB GPU",
+   "plan(7, 16) == 'lora' and plan(13, 16) == 'qlora' and plan(0.5, 16) == 'full'"
+  ],
+  [
+   "Some models do not fit at all",
+   "plan(70, 16) == 'none'"
+  ]
+ ]
+}

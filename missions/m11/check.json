@@ -1,0 +1,25 @@
+{
+ "kind": "mission",
+ "title": "Will this API change break the mobile app?",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "",
+ "checks": [
+  [
+   "Every breaking change is found, and nothing else",
+   "breaking_changes(OLD, NEW) == sorted([\n \"GET /claims/{id}: response field 'status' type changed from string to integer\",\n \"GET /claims/{id}: response field 'updated' removed\",\n \"GET /policies/{id}: endpoint removed\",\n \"POST /claims: new required request field 'channel'\",\n \"POST /claims: request field 'amount' type changed from number to string\"])"
+  ],
+  [
+   "Identical contracts have no breaking changes",
+   "breaking_changes(OLD, OLD) == [] and len(breaking_changes(OLD, NEW)) == 5"
+  ],
+  [
+   "Additions alone are not breaking, changes are",
+   "breaking_changes({'GET /a': {'request': {}, 'response': {'x': {'type': 'string'}}}}, {'GET /a': {'request': {'y': {'type': 'string', 'required': False}}, 'response': {'x': {'type': 'string'}, 'z': {'type': 'integer'}}}}) == [] and breaking_changes({'GET /a': {'request': {}, 'response': {'x': {'type': 'string'}}}}, {'GET /a': {'request': {}, 'response': {'x': {'type': 'integer'}}}}) == [\"GET /a: response field 'x' type changed from string to integer\"]"
+  ],
+  [
+   "The result is sorted",
+   "len(breaking_changes(OLD, NEW)) > 1 and breaking_changes(OLD, NEW) == sorted(breaking_changes(OLD, NEW))"
+  ]
+ ]
+}

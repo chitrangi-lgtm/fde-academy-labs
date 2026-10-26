@@ -1,0 +1,26 @@
+{
+ "kind": "pylab",
+ "title": "Find the slow span: p95 latency from traces",
+ "code_file": "lab.py",
+ "preamble_file": null,
+ "setup": "import pandas as _pd\n_t = _pd.read_csv(\"traces.csv\")\n_ref_p95 = {k: round(float(v), 1) for k, v in _t.groupby(\"span\")[\"ms\"].quantile(0.95).items()}\n",
+ "setup_first": true,
+ "checks": [
+  [
+   "p95 per span is right",
+   "{k: round(float(v), 1) for k, v in p95.items()} == _ref_p95"
+  ],
+  [
+   "Generation dominates the latency",
+   "slowest_span == 'generate'"
+  ],
+  [
+   "Two traces breached the budget",
+   "list(slow_traces) == ['T007', 'T019']"
+  ],
+  [
+   "A chart is drawn",
+   "'matplotlib.pyplot' in _sys.modules and len(_sys.modules['matplotlib.pyplot'].get_fignums()) >= 1"
+  ]
+ ]
+}

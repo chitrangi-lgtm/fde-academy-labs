@@ -1,0 +1,29 @@
+{
+ "kind": "mission",
+ "title": "The numbers for the steering committee",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "",
+ "checks": [
+  [
+   "NPV follows finance's convention",
+   "business_case(420_000, 600_000, 80_000, 3, 0.10)['npv'] == 245529.68"
+  ],
+  [
+   "Payback is interpolated within the year",
+   "business_case(420_000, 600_000, 80_000, 3, 0.10)['payback_years'] == 1.76"
+  ],
+  [
+   "ROI is net benefit over total cost",
+   "business_case(420_000, 600_000, 80_000, 3, 0.10)['roi'] == 0.5"
+  ],
+  [
+   "A case that never pays back says so",
+   "business_case(100_000, 600_000, 80_000, 3, 0.10)['payback_years'] is None"
+  ],
+  [
+   "The committee's rule",
+   "recommendation(business_case(420_000, 600_000, 80_000, 3, 0.10)) == 'approve' and recommendation(business_case(300_000, 600_000, 80_000, 4, 0.10)) == 'revise'"
+  ]
+ ]
+}

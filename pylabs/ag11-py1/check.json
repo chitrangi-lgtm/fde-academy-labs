@@ -1,0 +1,26 @@
+{
+ "kind": "pylab",
+ "title": "Where did the money go? Model cost by feature",
+ "code_file": "lab.py",
+ "preamble_file": null,
+ "setup": "import pandas as _pd\n_PRICES = {\"flash-lite\": (0.10, 0.025, 0.40), \"flash\": (0.30, 0.075, 2.50), \"pro\": (1.25, 0.3125, 10.00)}\n_c = _pd.read_csv(\"calls.csv\")\n_cost = _c.apply(lambda r: ((r.input_tokens - r.cached_tokens) * _PRICES[r.model][0] + r.cached_tokens * _PRICES[r.model][1]\n                           + r.output_tokens * _PRICES[r.model][2]) / 1e6, axis=1)\n_ref_by_feature = {k: round(float(v), 2) for k, v in _cost.groupby(_c.feature).sum().items()}\n_ref_hit = float(_c.cached_tokens.sum() / _c.input_tokens.sum())\n",
+ "setup_first": true,
+ "checks": [
+  [
+   "Cost per feature is right",
+   "{k: round(float(v), 2) for k, v in by_feature.items()} == _ref_by_feature"
+  ],
+  [
+   "The spike day is found",
+   "spike_day == '2026-09-05'"
+  ],
+  [
+   "Contract review caused it",
+   "spike_feature == 'contract_review'"
+  ],
+  [
+   "The cache hit rate is right",
+   "abs(cache_hit_rate - _ref_hit) < 0.001"
+  ]
+ ]
+}

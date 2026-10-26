@@ -1,0 +1,29 @@
+{
+ "kind": "mission",
+ "title": "Check the planning agent's plan",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "",
+ "checks": [
+  [
+   "Parallel waves",
+   "waves(TASKS, DEPS) == [['collect'], ['clean', 'policy_review'], ['approve', 'embed'], ['index'], ['launch']]"
+  ],
+  [
+   "The plan has no cycle",
+   "has_cycle(TASKS, DEPS) is False"
+  ],
+  [
+   "A cycle is detected",
+   "has_cycle(TASKS, dict(DEPS, collect=['launch'])) is True"
+  ],
+  [
+   "The critical path and its length",
+   "critical_path(TASKS, DEPS) == (['collect', 'clean', 'embed', 'index', 'launch'], 11)"
+  ],
+  [
+   "A longer review changes the critical path",
+   "critical_path(dict(TASKS, policy_review=9), DEPS) == (['collect', 'policy_review', 'approve', 'launch'], 13)"
+  ]
+ ]
+}

@@ -1,0 +1,33 @@
+{
+ "kind": "mission",
+ "title": "Reconcile the supplier price list",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "",
+ "checks": [
+  [
+   "Today's prices are right for this quarter's file",
+   "current_prices('prices.csv') == {'LP-100': 21.5, 'LP-101': 5.0, 'LP-102': 12.0, 'LP-103': 7.25}"
+  ],
+  [
+   "The catalog price wins a same-day clash",
+   "current_prices('prices.csv')['LP-103'] == 7.25"
+  ],
+  [
+   "A row with no price is skipped",
+   "'LP-104' not in current_prices('prices.csv')"
+  ],
+  [
+   "Prices are floats",
+   "all(isinstance(v, float) for v in current_prices('prices.csv').values())"
+  ],
+  [
+   "Same-day disagreements are listed, identical duplicates are not",
+   "conflicts('prices.csv') == ['LP-103']"
+  ],
+  [
+   "Nothing is hard-coded: next quarter's file works",
+   "current_prices('prices_q2.csv') == {'AB-1': 2.5, 'AB-2': 9.99} and conflicts('prices_q2.csv') == []"
+  ]
+ ]
+}

@@ -1,0 +1,20 @@
+name: Check my labs
+on: [push, workflow_dispatch]
+permissions:
+  contents: read
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  check:
+    # The course's own copy is a template of starters only; checks run on each learner's copy made from it.
+    if: ${{ !github.event.repository.is_template }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install --quiet pandas numpy scikit-learn pydantic duckdb networkx scipy jsonschema matplotlib
+      - run: python tools/fde_check.py --all

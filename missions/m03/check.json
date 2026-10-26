@@ -1,0 +1,33 @@
+{
+ "kind": "mission",
+ "title": "Answer the CFO's questions, safely",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "\nimport sqlite3 as _sq\ndef _db():\n    c = _sq.connect(\":memory:\")\n    load(c)\n    return c\ndef _survives(attack):\n    c = _db()\n    try:\n        orders_for(c, attack)\n    except Exception:\n        pass\n    return c.execute(\"SELECT COUNT(*) FROM orders\").fetchone()[0] == 6\n",
+ "checks": [
+  [
+   "The tables load from the export",
+   "_db().execute('SELECT COUNT(*) FROM customers').fetchone()[0] == 5"
+  ],
+  [
+   "Paid revenue by region, highest first",
+   "[(r, round(v, 2)) for r, v in revenue_by_region(_db())] == [('North', 290.0), ('South', 200.0)]"
+  ],
+  [
+   "Customers who never ordered",
+   "customers_without_orders(_db()) == ['Eva Lind']"
+  ],
+  [
+   "Support's lookup works",
+   "orders_for(_db(), 'Ada Park') == [10, 11]"
+  ],
+  [
+   "A quote-mark trick returns nothing",
+   "orders_for(_db(), \"x' OR '1'='1\") == []"
+  ],
+  [
+   "A destructive input leaves the data intact",
+   "_survives(\"x'; DELETE FROM orders; --\")"
+  ]
+ ]
+}

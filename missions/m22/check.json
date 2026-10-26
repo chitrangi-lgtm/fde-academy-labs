@@ -1,0 +1,29 @@
+{
+ "kind": "mission",
+ "title": "Check the partner feed against its data contract",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "",
+ "checks": [
+  [
+   "Every violation is listed by row and field",
+   "violations(CONTRACT, BATCH) == [(1, 'status', 'not allowed'), (2, 'amount', 'wrong type'), (2, 'status', 'missing'), (3, 'claim_id', 'null'), (3, 'notes', 'unexpected field'), (3, 'priority', 'wrong type')]"
+  ],
+  [
+   "A nullable amount may be None and an optional field may be absent",
+   "violations(CONTRACT, [{'claim_id': 'C', 'status': 'paid', 'amount': None, 'updated_at': 't'}]) == []"
+  ],
+  [
+   "An integer is a number, a boolean is not",
+   "violations(CONTRACT, [{'claim_id': 'C', 'status': 'paid', 'amount': 5, 'updated_at': 't'}]) == [] and violations(CONTRACT, [{'claim_id': 'C', 'status': 'paid', 'amount': False, 'updated_at': 't'}]) == [(0, 'amount', 'wrong type')]"
+  ],
+  [
+   "Fresh within two hours",
+   "is_fresh(CONTRACT, BATCH, '2026-10-25T10:30:00') is True"
+  ],
+  [
+   "Stale after two hours",
+   "is_fresh(CONTRACT, BATCH, '2026-10-25T11:30:00') is False"
+  ]
+ ]
+}

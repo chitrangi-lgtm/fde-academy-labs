@@ -1,0 +1,10 @@
+{
+  "fields": {
+    "claim_id": {"type": "string", "required": true, "nullable": false},
+    "status": {"type": "string", "required": true, "nullable": false, "enum": ["received", "assessing", "approved", "rejected", "paid"]},
+    "amount": {"type": "number", "required": true, "nullable": true},
+    "priority": {"type": "integer", "required": false, "nullable": false},
+    "updated_at": {"type": "string", "required": true, "nullable": false}
+  },
+  "freshness_hours": 2
+}

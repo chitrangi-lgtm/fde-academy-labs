@@ -1,0 +1,5 @@
+{
+  "thresholds": {"answer_accuracy": {"min": 0.9}, "p95_latency_ms": {"max": 2000}, "escalation_rate": {"max": 0.15}, "uptime": {"min": 0.995}},
+  "week": {"answer_accuracy": 0.93, "p95_latency_ms": 2350, "escalation_rate": 0.12},
+  "issues": [{"id": "INC-7", "severity": "sev2", "status": "open"}, {"id": "INC-9", "severity": "sev3", "status": "open"}, {"id": "INC-4", "severity": "sev1", "status": "closed"}]
+}

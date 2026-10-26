@@ -1,0 +1,4 @@
+{
+  "GET /claims/{id}": {"request": {}, "response": {"id": {"type": "string"}, "status": {"type": "integer"}, "amount": {"type": "number"}, "currency": {"type": "string"}}},
+  "POST /claims": {"request": {"policy_id": {"type": "string", "required": true}, "amount": {"type": "string", "required": true}, "note": {"type": "string", "required": false}, "channel": {"type": "string", "required": true}, "photo_url": {"type": "string", "required": false}}, "response": {"id": {"type": "string"}, "eta_days": {"type": "integer"}}}
+}

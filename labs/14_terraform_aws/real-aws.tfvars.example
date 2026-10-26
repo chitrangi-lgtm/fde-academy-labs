@@ -1,0 +1,6 @@
+# Copy to real-aws.tfvars and fill in. Never commit real-aws.tfvars.
+use_emulator       = false
+region             = "ap-south-1"
+bucket_suffix      = "abc-2026-01"   # make it unique: S3 bucket names are global
+monthly_budget_usd = "5"
+budget_email       = "you@your-company.example"

@@ -1,0 +1,33 @@
+{
+ "kind": "mission",
+ "title": "Why did the integration create duplicate orders?",
+ "code_file": "solution.py",
+ "preamble_file": null,
+ "setup": "",
+ "checks": [
+  [
+   "The log loads",
+   "len(load('api_log.jsonl')) == 11"
+  ],
+  [
+   "Error rates per kind of call",
+   "error_rates(load('api_log.jsonl')) == {'POST /orders': 0.167, 'GET /orders': 0.333, 'POST /payments': 0.0}"
+  ],
+  [
+   "The duplicated order is found, and keyed replays are not blamed",
+   "duplicate_creates(load('api_log.jsonl')) == ['A-101']"
+  ],
+  [
+   "Only transient failures are retryable",
+   "[retryable(s) for s in (400, 404, 408, 429, 500, 503, 201)] == [False, False, True, True, True, True, False]"
+  ],
+  [
+   "Backoff grows and is capped",
+   "[backoff(0), backoff(3), backoff(10)] == [0.5, 4.0, 8.0]"
+  ],
+  [
+   "The server's Retry-After wins",
+   "backoff(1, retry_after=7) == 7"
+  ]
+ ]
+}

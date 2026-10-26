@@ -1,0 +1,33 @@
+{
+ "kind": "mission",
+ "title": "Stop the instruction hidden in an email",
+ "code_file": "solution.py",
+ "preamble_file": "provided.py",
+ "setup": "",
+ "checks": [
+  [
+   "The injected forward is blocked",
+   "guard({'tool': 'forward_email', 'args': {'to': ['payments-update@quickmail.example']}}, 'retrieved')[0] == 'block'"
+  ],
+  [
+   "Side effects from tool output are blocked too",
+   "guard({'tool': 'pay_invoice', 'args': {'amount': 20}}, 'tool_output')[0] == 'block'"
+  ],
+  [
+   "Reading is always allowed",
+   "[guard({'tool': 'read_inbox', 'args': {}}, p)[0] for p in ('user', 'retrieved', 'tool_output')] == ['allow', 'allow', 'allow']"
+  ],
+  [
+   "Mail leaving the company needs approval, internal mail does not",
+   "guard({'tool': 'send_email', 'args': {'to': ['ana@ashgrove.example', 'x@partner.example']}}, 'user')[0] == 'approve' and guard({'tool': 'send_email', 'args': {'to': ['ana@ashgrove.example']}}, 'user')[0] == 'allow'"
+  ],
+  [
+   "Large payments and any delete need approval",
+   "guard({'tool': 'pay_invoice', 'args': {'amount': 900}}, 'user')[0] == 'approve' and guard({'tool': 'pay_invoice', 'args': {'amount': 120}}, 'user')[0] == 'allow' and guard({'tool': 'delete_file', 'args': {'path': 'a.txt'}}, 'user')[0] == 'approve'"
+  ],
+  [
+   "Every decision comes with a reason",
+   "all(isinstance(guard(a, p)[1], str) and len(guard(a, p)[1]) > 10 for a, p in [({'tool': 'read_inbox', 'args': {}}, 'user'), ({'tool': 'send_email', 'args': {'to': ['a@b.example']}}, 'retrieved')])"
+  ]
+ ]
+}
