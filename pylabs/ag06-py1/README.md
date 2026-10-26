@@ -4,7 +4,7 @@
 
 A planning agent produced seven tasks with durations (in days) and dependencies for a document-search launch. Before anyone commits to a date, check the plan: which tasks can run in parallel, which chain sets the launch date, how long it takes, and whether a proposed change would create a cycle.
 
-Write your code in `lab.py`, then run `python tools/fde_check.py ag06-py1` from the kit's folder.
+Write your code in `lab.py`, then run `python tools/fde_check.py ag06-py1` from the kit's folder. `GUIDE.md` has the ideas, the steps check by check and the common mistakes.
 
 <details><summary>Hints</summary>
 

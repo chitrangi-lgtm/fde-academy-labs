@@ -4,7 +4,7 @@
 
 A client asks why fine-tuning only a few million parameters can adapt a billion-parameter model. Show it: a 64 x 64 weight update W is already loaded. Approximate it with rank r, measure the error, find the smallest rank within 5 percent, and count the parameters LoRA trains instead of the full matrix.
 
-Write your code in `lab.py`, then run `python tools/fde_check.py m19-py1` from the kit's folder.
+Write your code in `lab.py`, then run `python tools/fde_check.py m19-py1` from the kit's folder. `GUIDE.md` has the ideas, the steps check by check and the common mistakes.
 
 <details><summary>Hints</summary>
 

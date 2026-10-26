@@ -4,7 +4,7 @@
 
 Bayport Supplies' finance team wants three numbers for the quarterly review: revenue by city, the customers who never ordered, and revenue by month with a running total. DuckDB runs SQL straight over pandas DataFrames (and over CSV and Parquet files), which is how many analysts now work. Write each answer as one SQL query.
 
-Write your code in `lab.py`, then run `python tools/fde_check.py m03-py1` from the kit's folder.
+Write your code in `lab.py`, then run `python tools/fde_check.py m03-py1` from the kit's folder. `GUIDE.md` has the ideas, the steps check by check and the common mistakes.
 
 <details><summary>Hints</summary>
 

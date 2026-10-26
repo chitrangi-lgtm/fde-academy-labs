@@ -4,7 +4,7 @@
 
 A support agent turns customer emails into tickets. The first answer from the model is chatty and uses a priority the system does not know; the second, after a corrective message, is clean. Build the loop a production team would: extract the JSON, validate it, and if it fails, write a retry message that names each field and the allowed values.
 
-Write your code in `lab.py`, then run `python tools/fde_check.py ag03-py1` from the kit's folder.
+Write your code in `lab.py`, then run `python tools/fde_check.py ag03-py1` from the kit's folder. `GUIDE.md` has the ideas, the steps check by check and the common mistakes.
 
 <details><summary>Hints</summary>
 

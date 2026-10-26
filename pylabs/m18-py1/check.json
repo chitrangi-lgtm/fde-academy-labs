@@ -3,12 +3,12 @@
  "title": "Find the slow span: p95 latency from traces",
  "code_file": "lab.py",
  "preamble_file": null,
- "setup": "import pandas as _pd\n_t = _pd.read_csv(\"traces.csv\")\n_ref_p95 = {k: round(float(v), 1) for k, v in _t.groupby(\"span\")[\"ms\"].quantile(0.95).items()}\n",
+ "setup": "# Expected p95 per span for traces.csv (pandas' default percentile), computed once and written out.\n_P95 = {\"auth\": 59.5, \"generate\": 1867.2, \"guardrail\": 67.5, \"rerank\": 152.5, \"retrieve\": 1584.8}\n",
  "setup_first": true,
  "checks": [
   [
    "p95 per span is right",
-   "{k: round(float(v), 1) for k, v in p95.items()} == _ref_p95"
+   "{k: round(float(v), 1) for k, v in p95.items()} == _P95"
   ],
   [
    "Generation dominates the latency",

@@ -4,7 +4,7 @@
 
 An invoice-extraction prompt returns JSON most of the time. Finance has found invoices whose total does not match the lines, lower-case currency codes, a zero quantity, and one answer wrapped in chatty text and a code fence. Write a pydantic schema that catches every one of these, and a parser that rescues the wrapped answer.
 
-Write your code in `lab.py`, then run `python tools/fde_check.py m09-py1` from the kit's folder.
+Write your code in `lab.py`, then run `python tools/fde_check.py m09-py1` from the kit's folder. `GUIDE.md` has the ideas, the steps check by check and the common mistakes.
 
 <details><summary>Hints</summary>
 

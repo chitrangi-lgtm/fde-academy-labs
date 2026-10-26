@@ -4,7 +4,7 @@
 
 The steering committee will ask 'what if the benefits are 20 percent lower?' before it signs. Build the NPV for the claims assistant (420,000 dollars a year of benefit, 600,000 up front, 80,000 a year to run, three years, 10 percent discount rate), swing each driver by 20 percent either way, and draw a tornado chart.
 
-Write your code in `lab.py`, then run `python tools/fde_check.py m24-py1` from the kit's folder.
+Write your code in `lab.py`, then run `python tools/fde_check.py m24-py1` from the kit's folder. `GUIDE.md` has the ideas, the steps check by check and the common mistakes.
 
 <details><summary>Hints</summary>
 

@@ -4,7 +4,7 @@
 
 Harbor Payments flags a card payment as fraud when the amount is over 900 dollars. Their fraud team says the rule misses most real fraud, which happens at night on new devices. Train a model on the first 60 payments, test it on the last 20, and show the team, with the same metric for both, whether the model beats the rule.
 
-Write your code in `lab.py`, then run `python tools/fde_check.py m06-py1` from the kit's folder.
+Write your code in `lab.py`, then run `python tools/fde_check.py m06-py1` from the kit's folder. `GUIDE.md` has the ideas, the steps check by check and the common mistakes.
 
 <details><summary>Hints</summary>
 

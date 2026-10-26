@@ -23,4 +23,4 @@ Write your code in `solution.py`, then from the kit's folder run:
 python tools/fde_check.py m14
 ```
 
-There are no steps: how you build it is up to you. If you are stuck, `NUDGES.md` has two hints. The course site's version of this challenge (Module m14) records your score.
+There are no steps: how you build it is up to you. `GUIDE.md` explains how to read the email, how each criterion is checked and the common mistakes. If you are stuck, `NUDGES.md` has two hints and then the approach in plain English. The course site's version of this challenge records your score.

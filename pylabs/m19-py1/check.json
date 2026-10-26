@@ -3,7 +3,7 @@
  "title": "Why LoRA works: low-rank approximation with SVD",
  "code_file": "lab.py",
  "preamble_file": null,
- "setup": "import numpy as _np\n_rng = _np.random.default_rng(7)\nW = _rng.normal(size=(64, 4)) @ _rng.normal(size=(4, 64)) + 0.01 * _rng.normal(size=(64, 64))\ndef _ref_err(W, r):\n    U, S, Vt = _np.linalg.svd(W)\n    A = (U[:, :r] * S[:r]) @ Vt[:r]\n    return _np.linalg.norm(W - A) / _np.linalg.norm(W)\n_ref_best = next(r for r in range(1, 65) if _ref_err(W, r) < 0.05)\n",
+ "setup": "import numpy as _np\n_rng = _np.random.default_rng(7)\nW = _rng.normal(size=(64, 4)) @ _rng.normal(size=(4, 64)) + 0.01 * _rng.normal(size=(64, 64))\n",
  "setup_first": true,
  "checks": [
   [
@@ -20,7 +20,7 @@
   ],
   [
    "best_r is the smallest rank within 5 percent",
-   "best_r == _ref_best"
+   "best_r == 4"
   ],
   [
    "LoRA with r=8 on a 4096 x 4096 layer saves 16,711,680 parameters",

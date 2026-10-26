@@ -4,7 +4,7 @@
 
 A help-centre search returns the same long FAQ page for every question. The team ranks documents by the dot product of embedding vectors. Show them why the FAQ page always wins, and rank by cosine similarity instead.
 
-Write your code in `lab.py`, then run `python tools/fde_check.py m07-py1` from the kit's folder.
+Write your code in `lab.py`, then run `python tools/fde_check.py m07-py1` from the kit's folder. `GUIDE.md` has the ideas, the steps check by check and the common mistakes.
 
 <details><summary>Hints</summary>
 

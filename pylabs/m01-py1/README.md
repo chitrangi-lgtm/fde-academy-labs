@@ -4,7 +4,7 @@
 
 Northwind Retail's operations lead sends a sales extract and asks two questions before tomorrow's stand-up: which region earns the most, and which products sell best? The file is typical of client data: one order appears twice, a region has stray spaces and lower case, one row has no quantity and one has no real date. Clean it, explain what you dropped, and answer both questions.
 
-Write your code in `lab.py`, then run `python tools/fde_check.py m01-py1` from the kit's folder.
+Write your code in `lab.py`, then run `python tools/fde_check.py m01-py1` from the kit's folder. `GUIDE.md` has the ideas, the steps check by check and the common mistakes.
 
 <details><summary>Hints</summary>
 

@@ -4,7 +4,7 @@
 
 The finance team saw last week's model bill jump on one day. You have a week of usage by feature and model, and the price table (example prices per million tokens; cached input tokens are cheaper). Find what each feature cost, the spike day, the feature behind it, and the share of input tokens served from the cache.
 
-Write your code in `lab.py`, then run `python tools/fde_check.py ag11-py1` from the kit's folder.
+Write your code in `lab.py`, then run `python tools/fde_check.py ag11-py1` from the kit's folder. `GUIDE.md` has the ideas, the steps check by check and the common mistakes.
 
 <details><summary>Hints</summary>
 

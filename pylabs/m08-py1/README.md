@@ -4,7 +4,7 @@
 
 A client's engineers want to see self-attention, not a diagram of it. Q, K and V for a four-token sequence are already loaded. Implement scaled dot-product attention with an optional causal mask, keep it numerically stable for large scores, and draw the attention weights as a heatmap.
 
-Write your code in `lab.py`, then run `python tools/fde_check.py m08-py1` from the kit's folder.
+Write your code in `lab.py`, then run `python tools/fde_check.py m08-py1` from the kit's folder. `GUIDE.md` has the ideas, the steps check by check and the common mistakes.
 
 <details><summary>Hints</summary>
 

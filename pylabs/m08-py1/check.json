@@ -3,16 +3,16 @@
  "title": "Attention by hand in NumPy, with a heatmap",
  "code_file": "lab.py",
  "preamble_file": null,
- "setup": "import numpy as _np\nQ = _np.array([[1.0, 0.0], [0.0, 1.0], [1.0, 1.0], [0.5, -0.5]])\nK = _np.array([[1.0, 0.5], [0.0, 1.0], [1.0, -1.0], [0.5, 0.5]])\nV = _np.array([[1.0, 0.0], [0.0, 2.0], [3.0, 1.0], [0.5, 0.5]])\ndef _ref_attention(Q, K, V, causal=False):\n    s = Q @ K.T / _np.sqrt(K.shape[1])\n    if causal:\n        s = _np.where(_np.triu(_np.ones(s.shape, dtype=bool), 1), -_np.inf, s)\n    w = _np.exp(s - s.max(axis=1, keepdims=True))\n    w = w / w.sum(axis=1, keepdims=True)\n    return w @ V, w\n",
+ "setup": "import numpy as _np\nQ = _np.array([[1.0, 0.0], [0.0, 1.0], [1.0, 1.0], [0.5, -0.5]])\nK = _np.array([[1.0, 0.5], [0.0, 1.0], [1.0, -1.0], [0.5, 0.5]])\nV = _np.array([[1.0, 0.0], [0.0, 2.0], [3.0, 1.0], [0.5, 0.5]])\n# Expected values for these Q, K and V, computed once and written out.\n_OUT = _np.array([[1.36173521824, 0.731469015633], [0.673328488117, 0.979874267031],\n                  [0.868818485317, 0.764086102661], [1.579657569476, 0.798691531282]])\n_W_CAUSAL = _np.array([[1.0, 0.0, 0.0, 0.0], [0.41252099916, 0.58747900084, 0.0, 0.0],\n                       [0.488182167425, 0.342795904518, 0.169021928057, 0.0],\n                       [0.24237307721, 0.14261491482, 0.411911395312, 0.203100612657]])\n",
  "setup_first": true,
  "checks": [
   [
    "The output matches scaled dot-product attention",
-   "_np.allclose(attention(Q, K, V)[0], _ref_attention(Q, K, V)[0])"
+   "_np.allclose(attention(Q, K, V)[0], _OUT)"
   ],
   [
    "The causal weights match",
-   "_np.allclose(attention(Q, K, V, causal=True)[1], _ref_attention(Q, K, V, True)[1])"
+   "_np.allclose(attention(Q, K, V, causal=True)[1], _W_CAUSAL)"
   ],
   [
    "Each row of weights sums to 1",

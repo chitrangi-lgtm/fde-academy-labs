@@ -3,15 +3,15 @@
  "title": "Find the cost spike and the slow step",
  "code_file": "solution.py",
  "preamble_file": "provided.py",
- "setup": "\ndef _ref_cost(r):\n    i, c, o = PRICES[r[\"model\"]]\n    return ((r[\"input\"] - r[\"cached\"]) * i + r[\"cached\"] * c + r[\"output\"] * o) / 1e6\n",
+ "setup": "",
  "checks": [
   [
    "One call's cost",
-   "abs(cost(CALLS[1]) - _ref_cost(CALLS[1])) < 1e-12 and abs(cost(CALLS[1]) - 0.0174) < 1e-12"
+   "abs(cost(CALLS[1]) - 0.0174) < 1e-12"
   ],
   [
    "Cost by feature",
-   "report(CALLS)['by_feature'] == {f: round(sum(_ref_cost(r) for r in CALLS if r['feature'] == f), 2) for f in ('search', 'returns')}"
+   "report(CALLS)['by_feature'] == {'search': 0.05, 'returns': 0.27}"
   ],
   [
    "The spike day and its cause",
@@ -19,7 +19,7 @@
   ],
   [
    "Cache hit rate",
-   "report(CALLS)['cache_hit_rate'] == round(sum(r['cached'] for r in CALLS) / sum(r['input'] for r in CALLS), 3)"
+   "report(CALLS)['cache_hit_rate'] == 0.248"
   ],
   [
    "p95 latency per step",

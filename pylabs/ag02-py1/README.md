@@ -4,7 +4,7 @@
 
 An agent can call create_refund. Before any call reaches the payments system, the platform team wants every argument checked against the tool's JSON Schema, with a clear field name in each rejection so the agent can correct itself. Six calls from last night's logs are waiting.
 
-Write your code in `lab.py`, then run `python tools/fde_check.py ag02-py1` from the kit's folder.
+Write your code in `lab.py`, then run `python tools/fde_check.py ag02-py1` from the kit's folder. `GUIDE.md` has the ideas, the steps check by check and the common mistakes.
 
 <details><summary>Hints</summary>
 

@@ -4,7 +4,7 @@
 
 Harbor Group's policy assistant must answer 'per diem for overnight travel' from its own policies only. Keyword search misses paraphrases and vector search misses exact table terms, so the team wants both, fused with reciprocal rank fusion, and a tenant filter applied before ranking so another company's policy can never appear.
 
-Write your code in `lab.py`, then run `python tools/fde_check.py m14-py1` from the kit's folder.
+Write your code in `lab.py`, then run `python tools/fde_check.py m14-py1` from the kit's folder. `GUIDE.md` has the ideas, the steps check by check and the common mistakes.
 
 <details><summary>Hints</summary>
 

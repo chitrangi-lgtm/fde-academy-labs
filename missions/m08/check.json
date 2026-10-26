@@ -3,7 +3,7 @@
  "title": "Show the client what attention attends to",
  "code_file": "solution.py",
  "preamble_file": null,
- "setup": "\nimport math as _m\ndef _close(a, b, tol=1e-9):\n    if isinstance(a, (list, tuple)):\n        return len(a) == len(b) and all(_close(x, y, tol) for x, y in zip(a, b))\n    return abs(a - b) < tol\ndef _ref(Q, K, V, causal=False):\n    d = len(K[0]); W = []\n    for i, q in enumerate(Q):\n        s = [sum(a * b for a, b in zip(q, k)) / _m.sqrt(d) if not (causal and j > i) else float(\"-inf\") for j, k in enumerate(K)]\n        mx = max(s); e = [_m.exp(x - mx) for x in s]; t = sum(e); W.append([x / t for x in e])\n    return [[sum(w * v[c] for w, v in zip(row, V)) for c in range(len(V[0]))] for row in W], W\n",
+ "setup": "\ndef _close(a, b, tol=1e-9):\n    if isinstance(a, (list, tuple)):\n        return len(a) == len(b) and all(_close(x, y, tol) for x, y in zip(a, b))\n    return abs(a - b) < tol\n# Expected values for qkv.json, computed once and written out (the labs kit publishes this setup).\n_OUT = [[1.36173521824, 0.731469015633], [0.673328488117, 0.979874267031],\n        [0.868818485317, 0.764086102661], [1.579657569476, 0.798691531282]]\n_W = [[0.312963852261, 0.154312677089, 0.312963852261, 0.219759618389],\n      [0.265227634532, 0.377715718829, 0.091829012106, 0.265227634532],\n      [0.363556491185, 0.255285187693, 0.125873133428, 0.255285187693],\n      [0.24237307721, 0.14261491482, 0.411911395312, 0.203100612657]]\n_W_CAUSAL = [[1.0, 0.0, 0.0, 0.0], [0.41252099916, 0.58747900084, 0.0, 0.0],\n             [0.488182167425, 0.342795904518, 0.169021928057, 0.0],\n             [0.24237307721, 0.14261491482, 0.411911395312, 0.203100612657]]\n",
  "checks": [
   [
    "softmax sums to 1",
@@ -15,11 +15,11 @@
   ],
   [
    "Attention outputs and weights are right",
-   "_close(attention(Q, K, V)[0], _ref(Q, K, V)[0]) and _close(attention(Q, K, V)[1], _ref(Q, K, V)[1])"
+   "_close(attention(Q, K, V)[0], _OUT) and _close(attention(Q, K, V)[1], _W)"
   ],
   [
    "The causal mask hides later tokens",
-   "_close(attention(Q, K, V, True)[1], _ref(Q, K, V, True)[1]) and attention(Q, K, V, True)[1][0][1] == 0"
+   "_close(attention(Q, K, V, True)[1], _W_CAUSAL) and attention(Q, K, V, True)[1][0][1] == 0"
   ],
   [
    "Each token's favourite is found",

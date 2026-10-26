@@ -4,7 +4,7 @@
 
 Users of a claims assistant say it is 'sometimes slow'. You have 24 traces, each with five spans. Find each span's 95th-percentile latency, which span dominates, and which traces breached the 2.5-second budget. Draw a chart the client's operations lead can read in ten seconds.
 
-Write your code in `lab.py`, then run `python tools/fde_check.py m18-py1` from the kit's folder.
+Write your code in `lab.py`, then run `python tools/fde_check.py m18-py1` from the kit's folder. `GUIDE.md` has the ideas, the steps check by check and the common mistakes.
 
 <details><summary>Hints</summary>
 

@@ -56,6 +56,22 @@ month on a private one; a newer push cancels a check still running.
 **Set a budget alert on day one.** AWS: Billing → Budgets → a zero-spend budget. Azure: Cost Management → Budgets. Google
 Cloud: Billing → Budgets and alerts. A budget alert costs nothing and emails you before anything is charged.
 
+## Real delivery tools: Jira, Confluence and GitHub, free
+
+Team projects, Enterprise World squads and client projects can run in the tools enterprises use. The course's own tools
+still score the work; each piece of real work you link (a Jira issue, a pull request, a Confluence page) goes on your
+signed record, where an employer can open it.
+
+| Tool | Free plan | How the course uses it |
+|---|---|---|
+| [Jira](https://www.atlassian.com/software/jira/pricing) | Up to 10 users and 2 GB per site; over 10 users the site moves to a paid trial | One free site per team or squad: import the team's tickets from the course's Jira CSV and run the sprint board |
+| [Confluence](https://www.atlassian.com/software/confluence/pricing) | Up to 10 users and 2 GB, on the same free site | The team's wiki, charter, interface agreements, decision log, runbook and reports, from the course's page pack |
+| [GitHub](https://github.com/pricing) | Free organisations and repositories; Issues, Projects boards and pull-request reviews; Actions free on public repositories | The team's code, issues (created by the pack's workflow), reviews and checks; branch protection with one required review on public repositories |
+
+Use the course's synthetic data only. One person creates the free Atlassian site and adds teammates by email; keep it
+under 10 people. Download the packs from the Real tools tab of your team project (or the Real tools page in the
+Enterprise World, or the Real tools panel of a client project), then paste the team's tool addresses into the course.
+
 ## No account at all: emulators in your codespace
 
 | Emulator | Stands in for | How |
